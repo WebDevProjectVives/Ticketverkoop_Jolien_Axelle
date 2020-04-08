@@ -13,6 +13,12 @@ namespace Ticketverkoop.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<Stadion, StadionVM>();
+
+            CreateMap<Club, ClubVM>().ForMember(dest => dest.StadionNaam,
+                opts => opts.MapFrom(
+                    src => src.StadionNavigatie.Naam));
+
+
         }
     }
 }
