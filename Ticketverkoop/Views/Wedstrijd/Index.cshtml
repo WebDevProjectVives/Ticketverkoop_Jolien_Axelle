@@ -5,9 +5,12 @@
 }
 
 <h1>Index</h1>
+@section Styles{
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
 
 
-<table class="table">
+<table class="table" id="myTable">
     <thead>
         <tr>
             <th>
@@ -26,21 +29,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Datum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Thuisploeg)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uitploeg)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stadion)
-            </td>           
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Thuisploeg)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uitploeg)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stadion)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    @*Toevoegen voor tables + sorting*@
+    <script>
+        $(document).ready(() => {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
