@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,9 @@ namespace Ticketverkoop.Repository
 
         public IEnumerable<Wedstrijd> GetAll()
         {
-            return _dbContext.Wedstrijd.ToList();
+            return _dbContext.Wedstrijd.Include(w => w.Thuisploeg)
+                .Include(w => w.Uitploeg)
+                .Include(w => w.Stadion).ToList();
         }
     }
 }

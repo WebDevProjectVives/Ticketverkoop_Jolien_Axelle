@@ -14,10 +14,19 @@ namespace Ticketverkoop.AutoMapper
         {
             CreateMap<Stadion, StadionVM>();
 
-            CreateMap<Club, ClubVM>().ForMember(dest => dest.StadionNaam,
+            CreateMap<Club, ClubVM>().ForMember(dest => dest.Stadion,
                 opts => opts.MapFrom(
                     src => src.StadionNavigatie.Naam));
 
+            CreateMap<Wedstrijd, WedstrijdVM>().ForMember(dest => dest.Thuisploeg,
+                opts => opts.MapFrom(
+                    src => src.Thuisploeg.Naam))
+            .ForMember(dest => dest.Uitploeg,
+                opts => opts.MapFrom(
+                    src => src.Uitploeg.Naam))
+            .ForMember(dest => dest.Stadion,
+                opts => opts.MapFrom(
+                    src => src.Stadion.Naam));
 
         }
     }

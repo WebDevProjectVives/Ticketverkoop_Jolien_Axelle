@@ -14,7 +14,7 @@ namespace Ticketverkoop.Controllers
     public class ClubController : Controller
     {
         private ClubService _clubService;
-        private StadionService _stadionService;
+        //private StadionService _stadionService;
         private readonly IMapper _mapper;
 
         public ClubController(IMapper mapper)
