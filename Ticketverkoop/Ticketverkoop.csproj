@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Ticketverkoop.Service\Ticketverkoop.Service.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Views\ShoppingCart\" />
+    <Folder Include="wwwroot\lib\datatables\js\" />
+  </ItemGroup>
+
 </Project>

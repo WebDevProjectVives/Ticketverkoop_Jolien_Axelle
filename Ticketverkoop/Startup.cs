@@ -43,7 +43,17 @@ namespace Ticketverkoop
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //AutoMapper
             services.AddAutoMapper(typeof(Startup));
+
+            //Session
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                //options.Cookie.Name = "";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -68,6 +78,9 @@ namespace Ticketverkoop
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            //add Session
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
