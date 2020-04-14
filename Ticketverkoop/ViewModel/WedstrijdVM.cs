@@ -7,6 +7,7 @@ namespace Ticketverkoop.ViewModel
 {
     public class WedstrijdVM
     {
+        public int WedstrijdId { get; set; }
         public DateTime Datum { get; set; }
         public string Thuisploeg { get; set; }
         public string Uitploeg { get; set; }

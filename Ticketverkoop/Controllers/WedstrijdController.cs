@@ -32,5 +32,15 @@ namespace Ticketverkoop.Controllers
             List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(list);
             return View(listVM);
         }
+
+        public ActionResult Koop(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            return View();
+        }
     }
 }

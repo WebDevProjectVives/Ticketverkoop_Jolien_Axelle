@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Ticketverkoop.Areas.Identity.Data;
+using Ticketverkoop.Util.Mail;
 
 namespace Ticketverkoop
 {
@@ -36,6 +37,14 @@ namespace Ticketverkoop
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            // send mail
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));  // Configuration.GetSection("EmailSettings")) zal de
+            // instellingen opvragen uit de AppSettings.json file en vervolgens wordt er een emailsettings‐object aangemaakt en de waarden worden
+            // geïnjecteerd in het object
+
+
+            services.AddSingleton<IEmailSender, EmailSender>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
