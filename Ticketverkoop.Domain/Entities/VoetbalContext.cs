@@ -51,8 +51,6 @@ namespace Ticketverkoop.Domain.Entities
 
                 entity.Property(e => e.ClubId).HasColumnName("Club_ID");
 
-                entity.Property(e => e.KlantId).HasColumnName("Klant_ID");
-
                 entity.Property(e => e.SeizoenId).HasColumnName("Seizoen_ID");
 
                 entity.Property(e => e.StadionRingVakId).HasColumnName("Stadion_Ring_Vak_ID");
@@ -272,8 +270,6 @@ namespace Ticketverkoop.Domain.Entities
             modelBuilder.Entity<Ticket>(entity =>
             {
                 entity.Property(e => e.TicketId).HasColumnName("Ticket_ID");
-
-                entity.Property(e => e.KlantId).HasColumnName("Klant_ID");
 
                 entity.Property(e => e.StadionRingVakId).HasColumnName("Stadion_Ring_Vak_ID");
 
