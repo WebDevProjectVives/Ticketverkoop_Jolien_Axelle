@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Ticketverkoop.Service;
 using Ticketverkoop.ViewModel;
 
@@ -14,6 +15,8 @@ namespace Ticketverkoop.Controllers
     public class WedstrijdController : Controller
     {
         private WedstrijdService _wedstrijdService;
+        private RingService _ringService;
+        private VakService _vakService;
         private readonly IMapper _mapper;
         //private ClubService _clubService;
         //private StadionService _stadionService;
@@ -39,7 +42,9 @@ namespace Ticketverkoop.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.lstStadion = new SelectList(_wedstrijdService.GetAll(), "Stadion");
+            //ViewBag.lstRingen = new SelectList(_ringService.GetAll(), "RingId", "Naam");
+            //ViewBag.lstVakken = new SelectList(_vakService.GetAll(), "VakId", "Naam");
             return View();
         }
     }
