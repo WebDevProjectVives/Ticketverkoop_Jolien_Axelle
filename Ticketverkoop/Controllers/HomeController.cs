@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Ticketverkoop.Models;
 using Ticketverkoop.ViewModel;
+using Ticketverkoop.Util.Mail;
+using IEmailSender = Ticketverkoop.Util.Mail.IEmailSender;
 
 namespace Ticketverkoop.Controllers
 {

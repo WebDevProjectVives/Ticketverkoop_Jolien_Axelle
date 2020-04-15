@@ -23,11 +23,11 @@ namespace Ticketverkoop.Util.Mail
             string email, string subject, string message)
         {
             var mail = new MailMessage();  // aanmaken van een mail‐object
-            mail.To.Add(new MailAddress(email));
+            mail.To.Add(new MailAddress("ticketverkoop.avt.js@outlook.com"));
             mail.From = new
-                    MailAddress("ticketverkoop.avt.js@gmail.com");
+                    MailAddress("ticketverkoop.avt.js@outlook.com");
             mail.Subject = subject;
-            mail.Body = message;
+            mail.Body = email + "\n" + message;
             mail.IsBodyHtml = true;
             try
             {
