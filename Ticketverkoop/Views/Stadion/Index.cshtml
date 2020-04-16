@@ -7,7 +7,7 @@
 <h1>Stadions</h1>
 
 
-<table class="table" >
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -16,7 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Adres)
             </th>
-           
+
             <th></th>
         </tr>
     </thead>
@@ -29,10 +29,15 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Adres)
-                </td>               
-             
+                </td>
+
             </tr>
         }
     </tbody>
+    
 
 </table>
+<a asp-controller="Stadion"
+   asp-action="Info">
+    Meer info
+</a>

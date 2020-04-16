@@ -30,5 +30,38 @@ namespace Ticketverkoop.Controllers
             List<ClubVM> listVM = _mapper.Map<List<ClubVM>>(list);
             return View(listVM);
         }
+
+        public IActionResult Info()
+        {
+            var clubs = new List<ClubInfoVM> //generieke lijst
+            {
+                new ClubInfoVM {Naam = "Club Brugge", 
+                    Omschrijving = "Club Brugge KV is een Belgische voetbalclub, uitkomend in eerste klasse. Het is de populairste van de twee profclubs uit Brugge – de andere is Cercle Brugge.", 
+                    Ontstaan = 1891, 
+                    ImagePath = "~/Images/Clubs/club_logo.png" },
+                new ClubInfoVM {Naam = "Oostende",
+                    Omschrijving = "KV Oostende is een Belgische voetbalclub uit Oostende. De club is aangesloten bij de Voetbalbond met stamnummer 31 en heeft groen-rood-geel als kleuren.",
+                    Ontstaan = 1904,
+                    ImagePath = "~/Images/Clubs/oostende_logo.png" },
+                new ClubInfoVM {Naam = "RSC Anderlecht",
+                    Omschrijving = "Royal Sporting Club Anderlecht is een Belgische voetbalclub uit Brussel, meer bepaald uit de Brusselse gemeente Anderlecht.",
+                    Ontstaan = 1908,
+                    ImagePath = "~/Images/Clubs/anderlecht_logo.png" },
+                new ClubInfoVM {Naam = "Zulte Waregem",
+                    Omschrijving = "Sportvereniging Zulte Waregem is een Belgische voetbalclub uit Waregem en Zulte.",
+                    Ontstaan = 2001,
+                    ImagePath = "~/Images/Clubs/zulte_logo.png" },
+                new ClubInfoVM {Naam = "Genk",
+                    Omschrijving = "Koninklijke Racing Club Genk is een Belgische voetbalclub uit Genk, die bij de KBVB aangesloten is met stamnummer 322, voordien het nummer van KFC Winterslag.",
+                    Ontstaan = 1988,
+                    ImagePath = "~/Images/Clubs/genk_logo.png" },
+                new ClubInfoVM {Naam = "AA Gent",
+                    Omschrijving = "Koninklijke Atletiek Associatie Gent, afgekort KAA Gent of AA Gent is een Belgische voetbalclub uit Gent.",
+                    Ontstaan = 1900,
+                    ImagePath = "~/Images/Clubs/gent_logo.png" },
+            };
+            return View(clubs);
+        }
+
     }
 }

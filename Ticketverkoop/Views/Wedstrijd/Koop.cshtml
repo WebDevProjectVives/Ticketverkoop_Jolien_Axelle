@@ -3,11 +3,45 @@
 
         <form asp-action="Koop">
             <div class="form-group">
-                <label for="ringId" class="control-label"></label>
-                <select name="stadionId" id="stadionId"
-                        asp-items="@ViewBag.lstStadion">
-                    <option>Please select</option>
-                </select>
+                <div>
+                    <label for="ringId" class="control-label">Selecteer een ring</label>
+                    <select name="stadionId" id="stadionId"
+                            asp-items="@ViewBag.lstStadion">
+                        <option>Please select</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ringId" class="control-label">Selecteer een vak</label>
+                    <select name="stadionId" id="stadionId"
+                            asp-items="@ViewBag.lstStadion">
+                        <option>Please select</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Selecteer het aantal tickets</label>
+                    <select name="aantal" id="aantal"
+                            asp-items="@ViewBag.lstTickets">
+                        <option>Please select</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Prijs voor 1 ticket:</label>
+
+                </div>
+                <div>
+                    <label>Totale prijs:</label>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Betaal" class="btn btn-primary" />
+                    <input type="submit" value="Toevoegen aan winkelmandje" class="btn btn-primary" />
+                </div>
+                
+
+
+
+
                 <!--<select name="ringId" id="ringId"
             asp-items="@ViewBag.lstRingen">
         <option>Please select</option>

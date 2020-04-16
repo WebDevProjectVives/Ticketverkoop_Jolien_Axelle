@@ -54,3 +54,50 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.tile {
+    background-color: cornflowerblue;
+    color: #ffffff;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    transition: all .1s ease-in-out;
+    cursor: pointer; /*handje ipv pijltje*/
+    margin-bottom: 20px;
+    max-height: 1000px;
+    max-width: 1000px;
+    overflow: hidden;
+}
+/*half zorft ervoor dat de tile in 2 kan worden gedeeld, links tekst en rechts de foto*/
+/*.half {
+    display: inline-block;
+    width: 48%;
+    box-sizing: border-box;
+}*/
+
+.tile:hover {
+    background-color: lightblue;
+    color:black;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+.tile a:hover, .tile a:link, .tile a:visited, .tile a:active {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tile .title {
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.tile .image {
+    padding-bottom: 10px;
+}
+
+.tile .omschrijving {
+    padding-bottom: 10px;
+}

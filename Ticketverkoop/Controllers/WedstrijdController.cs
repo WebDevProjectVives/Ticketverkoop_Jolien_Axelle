@@ -42,6 +42,13 @@ namespace Ticketverkoop.Controllers
             {
                 return NotFound();
             }
+
+            var lijstTickets = new List<SelectListItem>();
+            for (var i = 1; i < 11; i++)
+                lijstTickets.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+            ViewBag.lstTickets = lijstTickets;
+            
+
             ViewBag.lstStadion = new SelectList(_wedstrijdService.GetAll(), "Stadion");
             //ViewBag.lstRingen = new SelectList(_ringService.GetAll(), "RingId", "Naam");
             //ViewBag.lstVakken = new SelectList(_vakService.GetAll(), "VakId", "Naam");
