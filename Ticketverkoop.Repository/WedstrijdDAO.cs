@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Ticketverkoop.Domain.Entities;
 
 namespace Ticketverkoop.Repository
@@ -21,6 +22,18 @@ namespace Ticketverkoop.Repository
             return _dbContext.Wedstrijd.Include(w => w.Thuisploeg)
                 .Include(w => w.Uitploeg)
                 .Include(w => w.Stadion).ToList();
+        }
+
+        public async Task<Wedstrijd> Get(int id)
+        {
+            try
+            {
+
+                return await _dbContext.Wedstrijd
+                         .Where(b => b.WedstrijdId == id).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            { throw ex; }
         }
     }
 }

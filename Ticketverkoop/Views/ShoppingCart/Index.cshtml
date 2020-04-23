@@ -19,32 +19,91 @@
         <table>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Order_ID)
-
-                </th>
-                <!--
-                <th>
-                    @*@Html.DisplayNameFor(model => model.Cart[0].Aantal)*@
+                    @Html.DisplayNameFor(model => model.Cart[0].Wedstrijd_ID)
 
                 </th>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.Cart[0].Prijs)*@
+                    @Html.DisplayNameFor(model => model.Cart[0].Ring)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Vak)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Aantal)
 
                 </th>
-                -->
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Prijs)
+
+                </th>
                 <th>
                     Subtotaal
                 </th>
             </tr>
-            
+            @{ float total = 0;}
+            @for (var i = 0; i < Model.Cart.Count; i++)
+            {
+
+        <tr>
+            @Html.HiddenFor(m => Model.Cart[i].Wedstrijd_ID)
+            <td>
+                <input asp-for="@Model.Cart[i].Wedstrijd_ID" readonly="readonly"
+                       class="form-control" />
+
+            </td>
+            <td>
+                <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen" >
+                    <option>Selecteer ring</option>
+                </select>
+            </td>
+            <td>
+                <select asp-for="@Model.Cart[i].Vak" asp-items="@ViewBag.lstVakken">
+                    <option>Selecteer vak</option>
+                </select>
+            </td>
+            <td>
+                <input asp-for="@Model.Cart[i].Aantal" type="number"
+                       min="1" max="10" data-aantal=@i />
+
+            </td>
+            <td>
+                <input asp-for="@Model.Cart[i].Prijs" type="number"
+                       readonly="readonly" />
+
+                @{
+                    var subtotaal = Model.Cart[i].Prijs
+                                    * Model.Cart[i].Aantal;
+                    total += subtotaal;
+                }
+            </td>
+            <td>
+                <input id="@("txtSubTotal" + @i)"
+                       value="@subtotaal"
+                       type="number" readonly="readonly" />
+            </td>
+
+            <td>
+
+                <a asp-controller="ShoppingCart"
+                   asp-action="Delete"
+                   asp-route-wedstrijd_ID="@Model.Cart[i].Wedstrijd_ID">
+                    <img src="~/Images/Delete_Icon.png" />
+                </a>
+            </td>
+        </tr>
+            }
+
             <tr>
                 <td>
-                    <input type="submit" value="Checkout"
+                    <input type="submit" value="Betalen"
                            class="btn btn-default" />
                 </td>
             </tr>
             <tr>
-                
+                <td id="cart-total">
+                    Totaal  <input id="txtTotal" value="@total"
+                                  type="number" readonly="readonly" />
+                </td>
             </tr>
         </table>
     </form>
@@ -57,10 +116,10 @@ else
 <a asp-controller="Wedstrijd"
    asp-action="Index">
 
-    Koop hier uw tickets! 
+    Koop hier nog tickets! 
 </a>
 
-@*@section Scripts {
+@section Scripts {
 
 
     <script>
@@ -87,5 +146,5 @@ else
 
         });
     </script>
-}*@
+}
 

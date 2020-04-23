@@ -13,12 +13,15 @@ namespace Ticketverkoop.ViewModel
     public class CartVM
     {
         //public int Orderlijn_ID { get; set; }
-        public int Order_ID { get; set; }
-        public string Naam { get; set; }
+        public int Wedstrijd_ID { get; set; }
+        public int Thuisploeg { get; set; }
+        public int Uitploeg { get; set; }
+        public string Ring { get; set; }
+        public string  Vak { get; set; }
         //public int Ticket_ID { get; set; }
         //public int Abonnement_ID { get; set; }
-        //public int Aantal { get; set; }
-        //public float Prijs { get; set; }
+        public int Aantal { get; set; }
+        public float Prijs { get; set; }
         public System.DateTime DateCreated { get; set; }
 
     }
