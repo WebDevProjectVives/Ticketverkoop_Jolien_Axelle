@@ -38,6 +38,28 @@ namespace Ticketverkoop.Controllers
             return View(listVM);
         }
 
+        public IActionResult PerClub()
+        {
+            ViewBag.lstWedstrijd = new SelectList(_wedstrijdService.GetAll(), "Thuisploeg", "Uitploeg");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult PerClub(int? ploegId)
+        {
+            if(ploegId == null)
+            {
+                return NotFound();
+            }
+            _wedstrijdService = new WedstrijdService();
+            var wedstrijden = _wedstrijdService.WedstrijdenPerClub(Convert.ToInt16(ploegId));
+
+            ViewBag.lstWedstrijd = new SelectList(_wedstrijdService.GetAll(), "Thuisploeg", "Uitploeg", ploegId);
+
+            List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(wedstrijden);
+            return View(listVM);
+        }
+
         public async Task<ActionResult> Select(int? id)
         {
             if (id == null)

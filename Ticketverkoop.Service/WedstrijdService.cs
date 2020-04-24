@@ -26,5 +26,10 @@ namespace Ticketverkoop.Service
             return await _wedstrijdDAO.Get(id);
         }
 
+        public IEnumerable<Wedstrijd> WedstrijdenPerClub(int ploegId)
+        {
+            return _wedstrijdDAO.WedstrijdenPerClub(ploegId);
+        }
+
     }
 }

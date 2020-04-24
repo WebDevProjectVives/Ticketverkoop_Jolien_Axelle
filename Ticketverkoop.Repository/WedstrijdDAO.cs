@@ -35,5 +35,14 @@ namespace Ticketverkoop.Repository
             catch (Exception ex)
             { throw ex; }
         }
+
+        public IEnumerable<Wedstrijd> WedstrijdenPerClub(int ploegId)
+        {
+            return _dbContext.Wedstrijd
+                .Where(w => w.ThuisploegId == ploegId || w.UitploegId == ploegId)
+                .Include(w => w.Thuisploeg)
+                .Include(w => w.Uitploeg)
+                .Include(w => w.Stadion).ToList();
+        }
     }
 }
