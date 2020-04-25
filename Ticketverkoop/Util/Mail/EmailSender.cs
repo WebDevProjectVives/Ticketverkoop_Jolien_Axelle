@@ -23,9 +23,9 @@ namespace Ticketverkoop.Util.Mail
             string email, string subject, string message)
         {
             var mail = new MailMessage();  // aanmaken van een mail‐object
-            mail.To.Add(new MailAddress("ticketverkoop.avt.js@outlook.com"));
+            mail.To.Add(new MailAddress("ticketverkoop.avt.js@gmail.com"));
             mail.From = new
-                    MailAddress("ticketverkoop.avt.js@outlook.com");
+                    MailAddress("ticketverkoop.avt.js@gmail.com");
             mail.Subject = subject;
             mail.Body = email + "\n" + message;
             mail.IsBodyHtml = true;
@@ -36,7 +36,7 @@ namespace Ticketverkoop.Util.Mail
                     smtp.Port = _emailSettings.MailPort;
                     smtp.EnableSsl = true;
                     smtp.Credentials =
-                        new NetworkCredential(_emailSettings.SenderName,
+                        new NetworkCredential(_emailSettings.Sender,
                                                 _emailSettings.Password);
                     await smtp.SendMailAsync(mail);
                 }

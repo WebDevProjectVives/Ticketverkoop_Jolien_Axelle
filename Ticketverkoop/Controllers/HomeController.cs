@@ -8,15 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using Ticketverkoop.Models;
 using Ticketverkoop.ViewModel;
 using Ticketverkoop.Util.Mail;
-using IEmailSender = Ticketverkoop.Util.Mail.IEmailSender;
 
 namespace Ticketverkoop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IEmailSender _emailSender;
+        private readonly Util.Mail.IEmailSender _emailSender;
 
-        public HomeController(IEmailSender emailSender)
+        public HomeController(Util.Mail.IEmailSender emailSender)
         {
             _emailSender = emailSender;
         }
