@@ -44,7 +44,7 @@ namespace Ticketverkoop.Controllers
             return View(cartList);
         }
 
-        public IActionResult Delete(int? wedstrijd_ID)
+        public IActionResult DeleteTicket(int? wedstrijd_ID)
         {
 
             if (wedstrijd_ID == null)
@@ -62,6 +62,32 @@ namespace Ticketverkoop.Controllers
             if (itemToRemove != null)
             {
                 cartList.Cart.Remove(itemToRemove);
+                HttpContext.Session.SetObject("ShoppingCart", cartList);
+
+            }
+
+            return View("index", cartList);
+
+        }
+
+        public IActionResult DeleteAbonnement(int? club_ID)
+        {
+
+            if (club_ID == null)
+            {
+                return NotFound();
+            }
+            ShoppingCartVM cartList
+              = HttpContext.Session
+              .GetObject<ShoppingCartVM>("ShoppingCart");
+
+            var itemToRemove =
+                cartList.AbonnementCart.FirstOrDefault(r => r.Club_ID == club_ID);
+            // db.bieren.FirstOrDefault (r => 
+
+            if (itemToRemove != null)
+            {
+                cartList.AbonnementCart.Remove(itemToRemove);
                 HttpContext.Session.SetObject("ShoppingCart", cartList);
 
             }

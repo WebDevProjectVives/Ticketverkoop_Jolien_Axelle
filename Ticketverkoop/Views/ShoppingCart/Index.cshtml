@@ -110,7 +110,7 @@
                         <td>
 
                             <a asp-controller="ShoppingCart"
-                               asp-action="Delete"
+                               asp-action="DeleteTicket"
                                asp-route-wedstrijd_ID="@Model.Cart[i].Wedstrijd_ID">
                                 <img src="~/Images/Delete_Icon.png" />
                             </a>
@@ -159,7 +159,7 @@
                         Subtotaal
                     </th>
                 </tr>
-                @{ float totall = 0;}
+                @{ float total = 0;}
                 @for (var i = 0; i < Model.AbonnementCart.Count; i++)
                 {
 
@@ -195,21 +195,21 @@
                                    readonly="readonly" />
 
                             @{
-                                var subtotaall = Model.AbonnementCart[i].Prijs
+                                var subtotaal = Model.AbonnementCart[i].Prijs
                                                 * Model.AbonnementCart[i].Aantal;
-                                totall += subtotaall;
+                                total += subtotaal;
                             }
                         </td>
                         <td>
                             <input id="@("txtSubTotal" + @i)"
-                                   value="@subtotaall"
+                                   value="@subtotaal"
                                    type="number" readonly="readonly" />
                         </td>
 
                         <td>
 
                             <a asp-controller="ShoppingCart"
-                               asp-action="Delete"
+                               asp-action="DeleteAbonnement"
                                asp-route-club_ID="@Model.AbonnementCart[i].Club_ID">
                                 <img src="~/Images/Delete_Icon.png" />
                             </a>
@@ -225,7 +225,7 @@
                 </tr>
                 <tr>
                     <td id="cart-total">
-                        Totaal  <input id="txtTotal" value="@totall"
+                        Totaal  <input id="txtTotal" value="@total"
                                        type="number" readonly="readonly" />
                     </td>
                 </tr>
@@ -254,7 +254,7 @@ else
             $("[id$=Aantal]").on('change', (e) => {
                 console.log("change");
                 let number = $(e.currentTarget).data("aantal"); // hoeveelste element, bijhouden in een data-aantal atttribute
-                let selectorPrice = "Cart_" + number + "__Prijs";
+                let selectorPrice = "Cart_" + number + "__Prijs"; // voor abonnement zou hier AbonnementCart ipv Cart_ moeten staan
                 let price = $("#" + selectorPrice).val();
                 let selector = "txtSubTotal" + number;
                 $('#' + selector).val($(e.currentTarget).val()
