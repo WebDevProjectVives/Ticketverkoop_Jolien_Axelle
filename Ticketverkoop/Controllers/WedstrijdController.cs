@@ -19,6 +19,7 @@ namespace Ticketverkoop.Controllers
         private WedstrijdService _wedstrijdService;
         private RingService _ringService;
         private VakService _vakService;
+        private ClubService _clubService;
         private readonly IMapper _mapper;
         //private ClubService _clubService;
         //private StadionService _stadionService;
@@ -38,28 +39,6 @@ namespace Ticketverkoop.Controllers
             return View(listVM);
         }
 
-        public IActionResult PerClub()
-        {
-            ViewBag.lstWedstrijd = new SelectList(_wedstrijdService.GetAll(), "Thuisploeg", "Uitploeg");
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult PerClub(int? ploegId)
-        {
-            if(ploegId == null)
-            {
-                return NotFound();
-            }
-            _wedstrijdService = new WedstrijdService();
-            var wedstrijden = _wedstrijdService.WedstrijdenPerClub(Convert.ToInt16(ploegId));
-
-            ViewBag.lstWedstrijd = new SelectList(_wedstrijdService.GetAll(), "Thuisploeg", "Uitploeg", ploegId);
-
-            List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(wedstrijden);
-            return View(listVM);
-        }
-
         public async Task<ActionResult> Select(int? id)
         {
             if (id == null)
@@ -68,15 +47,19 @@ namespace Ticketverkoop.Controllers
             }
 
             Wedstrijd wedstrijd = await _wedstrijdService.Get(Convert.ToInt32(id));
+            Club club = await _clubService.Get(wedstrijd.ThuisploegId);
+            Club club2 = await _clubService.Get(wedstrijd.UitploegId);
+
 
             CartVM item = new CartVM
             {
                 Wedstrijd_ID = wedstrijd.WedstrijdId,
+                Datum = wedstrijd.Datum,
                 Aantal = 1,
                 Prijs = 20, // moet prijs zijn uit de database : RingVakSTadion
                 DateCreated = DateTime.Now,
-                Thuisploeg = wedstrijd.ThuisploegId,
-                Uitploeg = wedstrijd.UitploegId
+                Thuisploeg = club.Naam,
+                Uitploeg = club2.Naam
             };
 
             ShoppingCartVM shopping;

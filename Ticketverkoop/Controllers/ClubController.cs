@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Ticketverkoop.Service;
 using Ticketverkoop.ViewModel;
 
@@ -14,6 +15,7 @@ namespace Ticketverkoop.Controllers
     public class ClubController : Controller
     {
         private ClubService _clubService;
+        private WedstrijdService _wedstrijdService;
         //private StadionService _stadionService;
         private readonly IMapper _mapper;
 
@@ -61,6 +63,28 @@ namespace Ticketverkoop.Controllers
                     ImagePath = "~/Images/Clubs/gent_logo.png" },
             };
             return View(clubs);
+        }
+
+        public IActionResult WedstrijdenPerClub()
+        {
+            ViewBag.lstClub = new SelectList(_clubService.GetAll(), "ClubId", "Naam");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult WedstrijdenPerClub(int? clubId)
+        {
+            if (clubId == null)
+            {
+                return NotFound();
+            }
+            _wedstrijdService = new WedstrijdService();
+            var wedstrijden = _wedstrijdService.WedstrijdenPerClub(Convert.ToInt16(clubId));
+
+            ViewBag.lstClub = new SelectList(_clubService.GetAll(), "ClubId", "Naam", clubId);
+
+            List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(wedstrijden);
+            return View(listVM);
         }
 
     }

@@ -14,8 +14,9 @@ namespace Ticketverkoop.ViewModel
     {
         //public int Orderlijn_ID { get; set; }
         public int Wedstrijd_ID { get; set; }
-        public int Thuisploeg { get; set; }
-        public int Uitploeg { get; set; }
+        public DateTime Datum { get; set; }
+        public string Thuisploeg { get; set; }
+        public string Uitploeg { get; set; }
         public string Ring { get; set; }
         public string  Vak { get; set; }
         //public int Ticket_ID { get; set; }

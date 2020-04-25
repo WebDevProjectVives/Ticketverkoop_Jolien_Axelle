@@ -39,7 +39,15 @@
 }
     </tbody>
 </table>
-<a asp-controller="Club"
-   asp-action="Info">
-    Meer info
-</a>
+<div>
+    <a asp-controller="Club"
+       asp-action="Info">
+        Meer info
+    </a>
+</div>
+<div class="form-group">
+    <input type="button"
+           value="Zie hier alle wedstrijden per club"
+           onclick="location.href=' @Url.Action("WedstrijdenPerClub", "Club" ) '" 
+           class="btn btn-primary"/>
+</div>

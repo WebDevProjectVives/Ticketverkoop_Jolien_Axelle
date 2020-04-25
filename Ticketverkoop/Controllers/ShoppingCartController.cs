@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,8 +20,11 @@ namespace Ticketverkoop.Controllers
     {
         private RingService ringService;
         private VakService vakService;
-        public ShoppingCartController()
+        private WedstrijdService _wedstrijdService;
+        private readonly IMapper _mapper; 
+        public ShoppingCartController(IMapper mapper)
         {
+            _mapper = mapper;
             ringService = new RingService();
             vakService = new VakService();
         }
@@ -33,6 +37,10 @@ namespace Ticketverkoop.Controllers
 
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+
+            //var ploeg1 = _wedstrijdService.Get(Convert.ToInt32(Wedstrijd_ID));
+            //CartVM cartVM = _mapper.Map<CartVM>(ploeg1);
+
             return View(cartList);
         }
 

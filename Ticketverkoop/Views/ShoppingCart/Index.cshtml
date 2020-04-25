@@ -20,7 +20,15 @@
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Cart[0].Wedstrijd_ID)
-
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Datum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Thuisploeg)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Uitploeg)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Cart[0].Ring)
@@ -52,7 +60,22 @@
 
             </td>
             <td>
-                <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen" >
+                <input asp-for="@Model.Cart[i].Datum" readonly="readonly"
+                       class="form-control" />
+
+            </td>
+            <td>
+                <input asp-for="@Model.Cart[i].Thuisploeg" readonly="readonly"
+                       class="form-control" />
+
+            </td>
+            <td>
+                <input asp-for="@Model.Cart[i].Uitploeg" readonly="readonly"
+                       class="form-control" />
+
+            </td>
+            <td>
+                <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen">
                     <option>Selecteer ring</option>
                 </select>
             </td>

@@ -12,7 +12,7 @@ namespace Ticketverkoop.ViewModel
         public string FromName { get; set; }
         [Required, Display(Name = "Jouw mail"), EmailAddress]
         public string FromEmail { get; set; }
-        [Required]
+        [Required, Display(Name = "Boodschap")]
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
     }

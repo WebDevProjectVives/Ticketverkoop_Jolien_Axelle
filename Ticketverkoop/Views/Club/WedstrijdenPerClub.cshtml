@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Ticketverkoop.ViewModel.WedstrijdVM>
 
 @{
-    ViewData["Title"] = "PerClub";
+    ViewData["Title"] = "WedstrijdenPerClub";
 }
 
 <h1>Wedstrijden per club</h1>
@@ -12,15 +12,15 @@
         <form asp-action="ListForm">
 
             <div class="form-group">
-                <label for="ploegId" class="control-label"></label>
-                <select name="ploegId" id="ploegId"
-                        asp-items="@ViewBag.lstWedstrijd">
+                <label for="clubId" class="control-label"></label>
+                <select name="clubId" id="clubId"
+                        asp-items="@ViewBag.lstClub">
                     <option>Selecteer club</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-default" />
+                <input type="submit" value="Zoeken" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -30,9 +30,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.WedstrijdId)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Datum)
                 </th>
@@ -53,9 +50,6 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.WedstrijdId)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Datum)
                     </td>
                     <td>
@@ -68,9 +62,7 @@
                         @Html.DisplayFor(modelItem => item.Stadion)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Koop tickets", "Select", "Wedstrijd", new { id = item.WedstrijdId })
                     </td>
                 </tr>
             }

@@ -28,6 +28,13 @@ namespace Ticketverkoop.AutoMapper
                 opts => opts.MapFrom(
                     src => src.Stadion.Naam));
 
+            CreateMap<Wedstrijd, CartVM>().ForMember(dest => dest.Thuisploeg,
+                opts => opts.MapFrom(
+                    src => src.Thuisploeg.Naam))
+            .ForMember(dest => dest.Uitploeg,
+                opts => opts.MapFrom(
+                    src => src.Uitploeg.Naam));
+
         }
     }
 }
