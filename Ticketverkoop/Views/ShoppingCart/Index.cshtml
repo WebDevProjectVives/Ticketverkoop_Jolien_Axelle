@@ -14,121 +14,223 @@
 
 @if (Model != null)
 {
-
     <form asp-action="Payment">
-        <table>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Wedstrijd_ID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Datum)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Thuisploeg)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Uitploeg)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Ring)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Vak)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Aantal)
+        @if (Model.Cart != null)
+        {
 
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Prijs)
+            <table>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].Wedstrijd_ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].Datum)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].Thuisploeg)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].Uitploeg)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].Ring)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].Vak)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].Aantal)
 
-                </th>
-                <th>
-                    Subtotaal
-                </th>
-            </tr>
-            @{ float total = 0;}
-            @for (var i = 0; i < Model.Cart.Count; i++)
-            {
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
-        <tr>
-            @Html.HiddenFor(m => Model.Cart[i].Wedstrijd_ID)
-            <td>
-                <input asp-for="@Model.Cart[i].Wedstrijd_ID" readonly="readonly"
-                       class="form-control" />
+                    </th>
+                    <th>
+                        Subtotaal
+                    </th>
+                </tr>
+                @{ float total = 0;}
+                @for (var i = 0; i < Model.Cart.Count; i++)
+                {
 
-            </td>
-            <td>
-                <input asp-for="@Model.Cart[i].Datum" readonly="readonly"
-                       class="form-control" />
+                    <tr>
+                        @Html.HiddenFor(m => Model.Cart[i].Wedstrijd_ID)
+                        <td>
+                            <input asp-for="@Model.Cart[i].Wedstrijd_ID" readonly="readonly"
+                                   class="form-control" />
 
-            </td>
-            <td>
-                <input asp-for="@Model.Cart[i].Thuisploeg" readonly="readonly"
-                       class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@Model.Cart[i].Datum" readonly="readonly"
+                                   class="form-control" />
 
-            </td>
-            <td>
-                <input asp-for="@Model.Cart[i].Uitploeg" readonly="readonly"
-                       class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@Model.Cart[i].Thuisploeg" readonly="readonly"
+                                   class="form-control" />
 
-            </td>
-            <td>
-                <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen">
-                    <option>Selecteer ring</option>
-                </select>
-            </td>
-            <td>
-                <select asp-for="@Model.Cart[i].Vak" asp-items="@ViewBag.lstVakken">
-                    <option>Selecteer vak</option>
-                </select>
-            </td>
-            <td>
-                <input asp-for="@Model.Cart[i].Aantal" type="number"
-                       min="1" max="10" data-aantal=@i />
+                        </td>
+                        <td>
+                            <input asp-for="@Model.Cart[i].Uitploeg" readonly="readonly"
+                                   class="form-control" />
 
-            </td>
-            <td>
-                <input asp-for="@Model.Cart[i].Prijs" type="number"
-                       readonly="readonly" />
+                        </td>
+                        <td>
+                            <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen">
+                                <option>Selecteer ring</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select asp-for="@Model.Cart[i].Vak" asp-items="@ViewBag.lstVakken">
+                                <option>Selecteer vak</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input asp-for="@Model.Cart[i].Aantal" type="number"
+                                   min="1" max="10" data-aantal=@i />
 
-                @{
-                    var subtotaal = Model.Cart[i].Prijs
-                                    * Model.Cart[i].Aantal;
-                    total += subtotaal;
+                        </td>
+                        <td>
+                            <input asp-for="@Model.Cart[i].Prijs" type="number"
+                                   readonly="readonly" />
+
+                            @{
+                                var subtotaal = Model.Cart[i].Prijs
+                                                * Model.Cart[i].Aantal;
+                                total += subtotaal;
+                            }
+                        </td>
+                        <td>
+                            <input id="@("txtSubTotal" + @i)"
+                                   value="@subtotaal"
+                                   type="number" readonly="readonly" />
+                        </td>
+
+                        <td>
+
+                            <a asp-controller="ShoppingCart"
+                               asp-action="Delete"
+                               asp-route-wedstrijd_ID="@Model.Cart[i].Wedstrijd_ID">
+                                <img src="~/Images/Delete_Icon.png" />
+                            </a>
+                        </td>
+                    </tr>
                 }
-            </td>
-            <td>
-                <input id="@("txtSubTotal" + @i)"
-                       value="@subtotaal"
-                       type="number" readonly="readonly" />
-            </td>
 
-            <td>
+                <tr>
+                    <td>
+                        <input type="submit" value="Betalen"
+                               class="btn btn-default" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="cart-total">
+                        Totaal  <input id="txtTotal" value="@total"
+                                       type="number" readonly="readonly" />
+                    </td>
+                </tr>
+            </table>
+        }
+        @if (Model.AbonnementCart != null)
+        {
+            <table>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Club_ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Naam)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Ring)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Vak)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Aantal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Prijs)
 
-                <a asp-controller="ShoppingCart"
-                   asp-action="Delete"
-                   asp-route-wedstrijd_ID="@Model.Cart[i].Wedstrijd_ID">
-                    <img src="~/Images/Delete_Icon.png" />
-                </a>
-            </td>
-        </tr>
-            }
+                    </th>
+                    <th>
+                        Subtotaal
+                    </th>
+                </tr>
+                @{ float totall = 0;}
+                @for (var i = 0; i < Model.AbonnementCart.Count; i++)
+                {
 
-            <tr>
-                <td>
-                    <input type="submit" value="Betalen"
-                           class="btn btn-default" />
-                </td>
-            </tr>
-            <tr>
-                <td id="cart-total">
-                    Totaal  <input id="txtTotal" value="@total"
-                                  type="number" readonly="readonly" />
-                </td>
-            </tr>
-        </table>
+                    <tr>
+                        @Html.HiddenFor(m => Model.AbonnementCart[i].Club_ID)
+                        <td>
+                            <input asp-for="@Model.AbonnementCart[i].Club_ID" readonly="readonly"
+                                   class="form-control" />
+
+                        </td>
+                        <td>
+                            <input asp-for="@Model.AbonnementCart[i].Naam" readonly="readonly"
+                                   class="form-control" />
+
+                        </td>
+                        <td>
+                            <select asp-for="@Model.AbonnementCart[i].Ring" asp-items="@ViewBag.lstRingen">
+                                <option>Selecteer ring</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select asp-for="@Model.AbonnementCart[i].Vak" asp-items="@ViewBag.lstVakken">
+                                <option>Selecteer vak</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input asp-for="@Model.AbonnementCart[i].Aantal" type="number"
+                                   min="1" max="10" data-aantal=@i />
+
+                        </td>
+                        <td>
+                            <input asp-for="@Model.AbonnementCart[i].Prijs" type="number"
+                                   readonly="readonly" />
+
+                            @{
+                                var subtotaall = Model.AbonnementCart[i].Prijs
+                                                * Model.AbonnementCart[i].Aantal;
+                                totall += subtotaall;
+                            }
+                        </td>
+                        <td>
+                            <input id="@("txtSubTotal" + @i)"
+                                   value="@subtotaall"
+                                   type="number" readonly="readonly" />
+                        </td>
+
+                        <td>
+
+                            <a asp-controller="ShoppingCart"
+                               asp-action="Delete"
+                               asp-route-club_ID="@Model.AbonnementCart[i].Club_ID">
+                                <img src="~/Images/Delete_Icon.png" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+                <tr>
+                    <td>
+                        <input type="submit" value="Betalen"
+                               class="btn btn-default" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="cart-total">
+                        Totaal  <input id="txtTotal" value="@totall"
+                                       type="number" readonly="readonly" />
+                    </td>
+                </tr>
+            </table>
+        }
     </form>
 }
 else
@@ -139,7 +241,7 @@ else
 <a asp-controller="Wedstrijd"
    asp-action="Index">
 
-    Koop hier nog tickets! 
+    Koop hier nog tickets!
 </a>
 
 @section Scripts {
@@ -147,18 +249,18 @@ else
 
     <script>
 
-        $( () => {
+        $(() => {
             //selecteer alle input elementen die eindigen met aantal
-            $("[id$=Aantal]").on('change',  (e) => {
+            $("[id$=Aantal]").on('change', (e) => {
                 console.log("change");
                 let number = $(e.currentTarget).data("aantal"); // hoeveelste element, bijhouden in een data-aantal atttribute
                 let selectorPrice = "Cart_" + number + "__Prijs";
                 let price = $("#" + selectorPrice).val();
                 let selector = "txtSubTotal" + number;
                 $('#' + selector).val($(e.currentTarget).val()
-                                                      * price);
+                    * price);
                 let sum = 0;
-                $('[id^=txtSubTotal]').each( (index, element) => {
+                $('[id^=txtSubTotal]').each((index, element) => {
                     if (!isNaN($(element).val())) {
                         sum += parseFloat($(element).val());
                     }
