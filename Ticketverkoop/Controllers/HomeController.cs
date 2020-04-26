@@ -34,11 +34,13 @@ namespace Ticketverkoop.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Contact(SendMailVM sendMailVM)
         {
 
             _emailSender.SendEmailAsync(sendMailVM.FromEmail, "contact pagina", sendMailVM.Message);
+            ModelState.Clear();
             return View();
         }
 

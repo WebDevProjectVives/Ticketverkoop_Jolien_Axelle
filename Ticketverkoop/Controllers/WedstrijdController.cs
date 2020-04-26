@@ -51,6 +51,10 @@ namespace Ticketverkoop.Controllers
             //Club club2 = await _clubService.Get(wedstrijd.UitploegId);
 
 
+           //var list = _wedstrijdService.Get(Convert.ToInt32(id));
+           CartVM listVM = _mapper.Map<CartVM>(wedstrijd);
+
+
             CartVM item = new CartVM
             {
                 Wedstrijd_ID = wedstrijd.WedstrijdId,
@@ -58,8 +62,8 @@ namespace Ticketverkoop.Controllers
                 Aantal = 1,
                 Prijs = 20, // moet prijs zijn uit de database : RingVakSTadion
                 DateCreated = DateTime.Now,
-                Thuisploeg = wedstrijd.ThuisploegId,
-                Uitploeg = wedstrijd.UitploegId
+                //Thuisploeg = wedstrijd.ThuisploegId, // wedstrijd.ThuisploegId,// wedstrijd.Thuisploeg.Naam,//
+                //Uitploeg = wedstrijd.UitploegId //wedstrijd.UitploegId//wedstrijd.Uitploeg.Naam//
             };
 
             ShoppingCartVM shopping;

@@ -34,9 +34,13 @@ namespace Ticketverkoop.Controllers
         {
             ViewBag.lstRingen = new SelectList(ringService.GetAll(), "RingId", "Naam");
             ViewBag.lstVakken = new SelectList(vakService.GetAll(), "VakId", "Naam");
+            
 
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+
+            /*var list = _wedstrijdService.Get(id);
+            List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(list);*/
 
             //var ploeg1 = _wedstrijdService.Get(Convert.ToInt32(Wedstrijd_ID));
             //CartVM cartVM = _mapper.Map<CartVM>(ploeg1);
@@ -125,6 +129,14 @@ namespace Ticketverkoop.Controllers
             
 
             return View();
+        }
+
+        [Authorize]
+        public IActionResult Historiek()
+        {
+            var list = _wedstrijdService.GetAll();
+            List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(list);
+            return View(listVM);
         }
     }
 }
