@@ -11,7 +11,7 @@ namespace Ticketverkoop.Domain.Entities
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
-            Orders = new HashSet<Order>();
+            Order = new HashSet<Order>();
         }
 
         public string Id { get; set; }
@@ -29,11 +29,13 @@ namespace Ticketverkoop.Domain.Entities
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
+        public DateTime Dob { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Order { get; set; }
     }
 }

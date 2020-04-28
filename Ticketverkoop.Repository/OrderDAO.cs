@@ -16,10 +16,10 @@ namespace Ticketverkoop.Repository
             _dbContext = new VoetbalContext();
         }
 
-        public IEnumerable<Order> GetAll()
+        /*public IEnumerable<Order> GetAll()
         {
             return _dbContext.Order.ToList();
-        }
+        }*/
 
     }
 }

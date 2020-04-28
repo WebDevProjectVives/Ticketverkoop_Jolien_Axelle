@@ -16,7 +16,7 @@ namespace Ticketverkoop.AutoMapper
 
             CreateMap<Club, ClubVM>().ForMember(dest => dest.Stadion,
                 opts => opts.MapFrom(
-                    src => src.StadionNavigatie.Naam));
+                    src => src.Stadion.Naam));
 
             CreateMap<Wedstrijd, WedstrijdVM>().ForMember(dest => dest.Thuisploeg,
                 opts => opts.MapFrom(

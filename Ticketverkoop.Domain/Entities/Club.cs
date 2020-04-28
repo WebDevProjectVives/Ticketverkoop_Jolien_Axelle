@@ -17,8 +17,7 @@ namespace Ticketverkoop.Domain.Entities
         public int StadionId { get; set; }
         public string Logo { get; set; }
 
-        public virtual Stadion StadionNavigatie { get; set; }
-
+        public virtual Stadion Stadion { get; set; }
         public virtual ICollection<Abonnement> Abonnement { get; set; }
         public virtual ICollection<Wedstrijd> WedstrijdThuisploeg { get; set; }
         public virtual ICollection<Wedstrijd> WedstrijdUitploeg { get; set; }

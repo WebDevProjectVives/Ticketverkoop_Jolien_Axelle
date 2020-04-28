@@ -7,9 +7,9 @@ namespace Ticketverkoop.Domain.Entities
     {
         public Stadion()
         {
+            Club = new HashSet<Club>();
             StadionRingVak = new HashSet<StadionRingVak>();
             Wedstrijd = new HashSet<Wedstrijd>();
-            Club = new HashSet<Club>();
         }
 
         public int StadionId { get; set; }

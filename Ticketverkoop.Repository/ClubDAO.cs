@@ -19,7 +19,7 @@ namespace Ticketverkoop.Repository
 
         public IEnumerable<Club> GetAll()
         {
-            return _dbContext.Club.Include(c => c.StadionNavigatie).ToList();
+            return _dbContext.Club.Include(c => c.Stadion).ToList();
         }
 
         public async Task<Club> Get(int id)
