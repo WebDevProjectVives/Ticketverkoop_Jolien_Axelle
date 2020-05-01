@@ -15,11 +15,14 @@ namespace Ticketverkoop.ViewModel
     {
         //public int Orderlijn_ID { get; set; }
         public int Wedstrijd_ID { get; set; }
+        public int Stadion_ID { get; set; }
         public DateTime Datum { get; set; }
         public int Thuisploeg { get; set; }
         public int Uitploeg { get; set; }
         public string Ring { get; set; }
+        public int RingFactor { get; set; }
         public string  Vak { get; set; }
+        public double VakFactor { get; set; }
         //public int Ticket_ID { get; set; }
         //public int Abonnement_ID { get; set; }
         public int Aantal { get; set; }

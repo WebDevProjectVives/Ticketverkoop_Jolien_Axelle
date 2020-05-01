@@ -9,6 +9,7 @@ namespace Ticketverkoop.ViewModel
     {
         public string Naam { get; set; }
         public String Adres { get; set; }
+        public decimal Basisprijs { get; set; }
 
     }
 }

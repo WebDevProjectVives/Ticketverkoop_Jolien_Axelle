@@ -19,6 +19,7 @@ namespace Ticketverkoop.Controllers
         private WedstrijdService _wedstrijdService;
         private RingService _ringService;
         private VakService _vakService;
+        private StadionService _stadionService;
         private ClubService _clubService;
         private readonly IMapper _mapper;
         //private ClubService _clubService;
@@ -28,6 +29,7 @@ namespace Ticketverkoop.Controllers
         public WedstrijdController(IMapper mapper)
         {
             _wedstrijdService = new WedstrijdService();
+            _stadionService = new StadionService();
             _mapper = mapper;
         }
 
@@ -58,9 +60,10 @@ namespace Ticketverkoop.Controllers
             CartVM item = new CartVM
             {
                 Wedstrijd_ID = wedstrijd.WedstrijdId,
+                Stadion_ID = wedstrijd.StadionId,
                 Datum = wedstrijd.Datum,
                 Aantal = 1,
-                Prijs = 20, // moet prijs zijn uit de database : RingVakSTadion
+                Prijs = /*_stadionService.GetPrijs(wedstrijd.StadionId)*/20, // moet prijs zijn uit de database : RingVakSTadion
                 DateCreated = DateTime.Now,
                 //Thuisploeg = wedstrijd.ThuisploegId, // wedstrijd.ThuisploegId,// wedstrijd.Thuisploeg.Naam,//
                 //Uitploeg = wedstrijd.UitploegId //wedstrijd.UitploegId//wedstrijd.Uitploeg.Naam//

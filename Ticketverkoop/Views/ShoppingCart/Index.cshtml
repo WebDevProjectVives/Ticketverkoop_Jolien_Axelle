@@ -36,7 +36,13 @@
                         @Html.DisplayNameFor(model => model.Cart[0].Ring)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].RingFactor)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Cart[0].Vak)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cart[0].VakFactor)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Cart[0].Aantal)
@@ -54,68 +60,76 @@
                 @for (var i = 0; i < Model.Cart.Count; i++)
                 {
 
-                    <tr>
-                        @Html.HiddenFor(m => Model.Cart[i].Wedstrijd_ID)
-                        <td>
-                            <input asp-for="@Model.Cart[i].Wedstrijd_ID" readonly="readonly"
-                                   class="form-control" />
+            <tr>
+                @Html.HiddenFor(m => Model.Cart[i].Wedstrijd_ID)
+                <td>
+                    <input asp-for="@Model.Cart[i].Wedstrijd_ID" readonly="readonly"
+                           class="form-control" />
 
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Datum" readonly="readonly"
-                                   class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Datum" readonly="readonly"
+                           class="form-control" />
 
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Thuisploeg" readonly="readonly"
-                                   class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Thuisploeg" readonly="readonly"
+                           class="form-control" />
 
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Uitploeg" readonly="readonly"
-                                   class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Uitploeg" readonly="readonly"
+                           class="form-control" />
 
-                        </td>
-                        <td>
-                            <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen">
-                                <option>Selecteer ring</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select asp-for="@Model.Cart[i].Vak" asp-items="@ViewBag.lstVakken">
-                                <option>Selecteer vak</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Aantal" type="number"
-                                   min="1" max="10" data-aantal=@i />
+                </td>
+                <td>
+                    <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen">
+                        <option>Selecteer ring</option>
+                    </select>
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].RingFactor" readonly="readonly"
+                           class="form-control" />
+                </td>
+                <td>
+                    <select asp-for="@Model.Cart[i].Vak" asp-items="@ViewBag.lstVakken">
+                        <option>Selecteer vak</option>
+                    </select>
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].VakFactor" asp-items="@ViewBag.lstVakFactor" readonly="readonly"
+                           class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Aantal" type="number"
+                           min="1" max="10" data-aantal=@i />
 
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Prijs" type="number"
-                                   readonly="readonly" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Prijs" type="number"
+                           readonly="readonly" />
 
-                            @{
-                                var subtotaal = Model.Cart[i].Prijs
-                                                * Model.Cart[i].Aantal;
-                                total += subtotaal;
-                            }
-                        </td>
-                        <td>
-                            <input id="@("txtSubTotal" + @i)"
-                                   value="@subtotaal"
-                                   type="number" readonly="readonly" />
-                        </td>
+                    @{
+                        var subtotaal = Model.Cart[i].Prijs
+                                        * Model.Cart[i].Aantal;
+                        total += subtotaal;
+                    }
+                </td>
+                <td>
+                    <input id="@("txtSubTotal" + @i)"
+                           value="@subtotaal"
+                           type="number" readonly="readonly" />
+                </td>
 
-                        <td>
+                <td>
 
-                            <a asp-controller="ShoppingCart"
-                               asp-action="DeleteTicket"
-                               asp-route-wedstrijd_ID="@Model.Cart[i].Wedstrijd_ID">
-                                <img src="~/Images/Delete_Icon.png" />
-                            </a>
-                        </td>
-                    </tr>
+                    <a asp-controller="ShoppingCart"
+                       asp-action="DeleteTicket"
+                       asp-route-wedstrijd_ID="@Model.Cart[i].Wedstrijd_ID">
+                        <img src="~/Images/Delete_Icon.png" />
+                    </a>
+                </td>
+            </tr>
                 }
 
                 <tr>

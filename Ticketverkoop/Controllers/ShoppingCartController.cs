@@ -34,7 +34,10 @@ namespace Ticketverkoop.Controllers
         {
             ViewBag.lstRingen = new SelectList(ringService.GetAll(), "RingId", "Naam");
             ViewBag.lstVakken = new SelectList(vakService.GetAll(), "VakId", "Naam");
-            
+            ViewBag.lstRingFactor = new SelectList(ringService.GetAll(), "RingId", "Factor");
+            ViewBag.lstVakFactor = new SelectList(vakService.GetAll(), "VakId", "Factor");
+
+
 
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
