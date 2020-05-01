@@ -67,6 +67,8 @@ namespace Ticketverkoop
                 //options.Cookie.Name = "";
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.IsEssential = true;
+                options.Cookie.HttpOnly = true;
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

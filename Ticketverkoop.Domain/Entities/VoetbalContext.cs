@@ -39,7 +39,7 @@ namespace Ticketverkoop.Domain.Entities
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQL_DEV_BI;  Database=Voetbal;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server = voetbalavtjs.database.windows.net;  Initial Catalog = VoetbalSQL; ; User ID = voetbalavtjs; Password = azerty-123; MultipleActiveResultSets = True; Encrypt = True; TrustServerCertificate = True;");
             }
         }
 
