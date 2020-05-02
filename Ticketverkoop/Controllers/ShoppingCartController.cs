@@ -32,21 +32,14 @@ namespace Ticketverkoop.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            ViewBag.lstRingen = new SelectList(ringService.GetAll(), "RingId", "Naam");
-            ViewBag.lstVakken = new SelectList(vakService.GetAll(), "VakId", "Naam");
-            ViewBag.lstRingFactor = new SelectList(ringService.GetAll(), "RingId", "Factor");
-            ViewBag.lstVakFactor = new SelectList(vakService.GetAll(), "VakId", "Factor");
+            ViewBag.lstRingen = new SelectList(ringService.GetAll(), "Factor", "Naam");
+            ViewBag.lstVakken = new SelectList(vakService.GetAll(), "Factor", "Naam");
 
 
 
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
-            /*var list = _wedstrijdService.Get(id);
-            List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(list);*/
-
-            //var ploeg1 = _wedstrijdService.Get(Convert.ToInt32(Wedstrijd_ID));
-            //CartVM cartVM = _mapper.Map<CartVM>(ploeg1);
 
             return View(cartList);
         }

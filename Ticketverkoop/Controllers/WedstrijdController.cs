@@ -22,8 +22,6 @@ namespace Ticketverkoop.Controllers
         private StadionService _stadionService;
         private ClubService _clubService;
         private readonly IMapper _mapper;
-        //private ClubService _clubService;
-        //private StadionService _stadionService;
 
 
         public WedstrijdController(IMapper mapper)
@@ -49,12 +47,6 @@ namespace Ticketverkoop.Controllers
             }
 
             Wedstrijd wedstrijd = await _wedstrijdService.Get(Convert.ToInt32(id));
-            //Club club = await _clubService.Get(wedstrijd.ThuisploegId);
-            //Club club2 = await _clubService.Get(wedstrijd.UitploegId);
-
-
-           //var list = _wedstrijdService.Get(Convert.ToInt32(id));
-           //CartVM listVM = _mapper.Map<CartVM>(wedstrijd);
 
 
             CartVM item = new CartVM
@@ -67,8 +59,6 @@ namespace Ticketverkoop.Controllers
                 DateCreated = DateTime.Now,
                 Thuisploeg = wedstrijd.Thuisploeg.Naam,
                 Uitploeg = wedstrijd.Uitploeg.Naam,
-                //Thuisploeg = wedstrijd.ThuisploegId, // wedstrijd.ThuisploegId,// wedstrijd.Thuisploeg.Naam,//
-                //Uitploeg = wedstrijd.UitploegId //wedstrijd.UitploegId//wedstrijd.Uitploeg.Naam//
             };
 
             ShoppingCartVM shopping;
@@ -88,21 +78,6 @@ namespace Ticketverkoop.Controllers
             HttpContext.Session.SetObject("ShoppingCart", shopping);
 
 
-            //  Session["ShoppingCart"] = shopping;
-
-            
-            /*
-            var lijstTickets = new List<SelectListItem>();
-            for (var i = 1; i < 11; i++)
-                lijstTickets.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
-            ViewBag.lstTickets = lijstTickets;
-            
-
-            ViewBag.lstStadion = new SelectList(_wedstrijdService.GetAll(), "Stadion");
-            //ViewBag.lstRingen = new SelectList(_ringService.GetAll(), "RingId", "Naam");
-            //ViewBag.lstVakken = new SelectList(_vakService.GetAll(), "VakId", "Naam");
-            //return View();
-            */
 
             return RedirectToAction("Index", "ShoppingCart");
         }

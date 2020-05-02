@@ -36,13 +36,7 @@
                         @Html.DisplayNameFor(model => model.Cart[0].Ring)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Cart[0].RingFactor)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Cart[0].Vak)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cart[0].VakFactor)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Cart[0].Aantal)
@@ -56,7 +50,7 @@
                         Subtotaal
                     </th>
                 </tr>
-                @{ float total = 0;}
+                @*@{ float total = 0;}*@
                 @for (var i = 0; i < Model.Cart.Count; i++)
                 {
 
@@ -83,22 +77,14 @@
 
                 </td>
                 <td>
-                    <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen">
+                    <select asp-for="@Model.Cart[i].Ring" asp-items="@ViewBag.lstRingen" data-aantal="@i">
                         <option>Selecteer ring</option>
                     </select>
                 </td>
                 <td>
-                    <input asp-for="@Model.Cart[i].RingFactor" readonly="readonly"
-                           class="form-control" />
-                </td>
-                <td>
-                    <select asp-for="@Model.Cart[i].Vak" asp-items="@ViewBag.lstVakken">
+                    <select asp-for="@Model.Cart[i].Vak" asp-items="@ViewBag.lstVakken" data-aantal="@i">
                         <option>Selecteer vak</option>
                     </select>
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].VakFactor" asp-items="@ViewBag.lstVakFactor" readonly="readonly"
-                           class="form-control" />
                 </td>
                 <td>
                     <input asp-for="@Model.Cart[i].Aantal" type="number"
@@ -107,17 +93,17 @@
                 </td>
                 <td>
                     <input asp-for="@Model.Cart[i].Prijs" 
-                           readonly="readonly" />
+                           readonly="readonly" data-basisprijs="@Model.Cart[i].Prijs"/>
 
-                    @{
+                    @*@{
                         var subtotaal = Model.Cart[i].Prijs
                                         * Model.Cart[i].Aantal;
                         total += (float)subtotaal;
-                    }
+                    }*@
                 </td>
                 <td>
                     <input id="@("txtSubTotal" + @i)"
-                           value="@subtotaal"
+                           value="0"
                            type="number" readonly="readonly" />
                 </td>
 
@@ -140,7 +126,7 @@
                 </tr>
                 <tr>
                     <td id="cart-total">
-                        Totaal  <input id="txtTotal" value="@total"
+                        Totaal  <input id="txtTotal" value="0"
                                        type="number" readonly="readonly" />
                     </td>
                 </tr>
@@ -173,7 +159,6 @@
                         Subtotaal
                     </th>
                 </tr>
-                @{ float total = 0;}
                 @for (var i = 0; i < Model.AbonnementCart.Count; i++)
                 {
 
@@ -190,12 +175,12 @@
 
                         </td>
                         <td>
-                            <select asp-for="@Model.AbonnementCart[i].Ring" asp-items="@ViewBag.lstRingen">
+                            <select asp-for="@Model.AbonnementCart[i].Ring" asp-items="@ViewBag.lstRingen" data-aantal="@i">
                                 <option>Selecteer ring</option>
                             </select>
                         </td>
                         <td>
-                            <select asp-for="@Model.AbonnementCart[i].Vak" asp-items="@ViewBag.lstVakken">
+                            <select asp-for="@Model.AbonnementCart[i].Vak" asp-items="@ViewBag.lstVakken" data-aantal="@i">
                                 <option>Selecteer vak</option>
                             </select>
                         </td>
@@ -205,18 +190,13 @@
 
                         </td>
                         <td>
-                            <input asp-for="@Model.AbonnementCart[i].Prijs" type="number"
-                                   readonly="readonly" />
+                            <input asp-for="@Model.AbonnementCart[i].Prijs"
+                                   readonly="readonly" data-basisprijs="@Model.AbonnementCart[i].Prijs" />
 
-                            @{
-                                var subtotaal = Model.AbonnementCart[i].Prijs
-                                                * Model.AbonnementCart[i].Aantal;
-                                total += subtotaal;
-                            }
                         </td>
                         <td>
                             <input id="@("txtSubTotal" + @i)"
-                                   value="@subtotaal"
+                                   value="0"
                                    type="number" readonly="readonly" />
                         </td>
 
@@ -239,7 +219,7 @@
                 </tr>
                 <tr>
                     <td id="cart-total">
-                        Totaal  <input id="txtTotal" value="@total"
+                        Totaal  <input id="txtTotal" value="0"
                                        type="number" readonly="readonly" />
                     </td>
                 </tr>
@@ -268,30 +248,89 @@ else
 
 
     <script>
+            $(() => {
 
-        $(() => {
-            //selecteer alle input elementen die eindigen met aantal
-            $("[id$=Aantal]").on('change', (e) => {
-                console.log("change");
-                let number = $(e.currentTarget).data("aantal"); // hoeveelste element, bijhouden in een data-aantal atttribute
-                let selectorPrice = "Cart_" + number + "__Prijs"; // voor abonnement zou hier AbonnementCart ipv Cart_ moeten staan
-                let price = $("#" + selectorPrice).val();
-                let selector = "txtSubTotal" + number;
-                $('#' + selector).val($(e.currentTarget).val()
-                    * price);
-                let sum = 0;
-                $('[id^=txtSubTotal]').each((index, element) => {
-                    if (!isNaN($(element).val())) {
-                        sum += parseFloat($(element).val());
-                    }
+                //selecteer alle input elementen die eindigen met aantal
+                $("[id$=Aantal]").on('change', (e) => {
+                    console.log("change");
+                    let number = $(e.currentTarget).data("aantal"); // hoeveelste element, bijhouden in een data-aantal atttribute
+                    let selectorPrice = "Cart_" + number + "__Prijs"; // voor abonnement zou hier AbonnementCart ipv Cart_ moeten staan
+                    let price = $("#" + selectorPrice).val();
+                    let selector = "txtSubTotal" + number;
+                    $('#' + selector).val($(e.currentTarget).val()
+                        * price);
+                    let sum = 0;
+                    $('[id^=txtSubTotal]').each((index, element) => {
+                        if (!isNaN($(element).val())) {
+                            sum += parseFloat($(element).val());
+                        }
+                    });
+
+                    $('#txtTotal').val(sum);
                 });
 
-                $('#txtTotal').val(sum);
+                $("[id$=Ring]").on('change', (e) => {
+                    console.log("change");
+                    let number = $(e.currentTarget).data("aantal");
+                    console.log(number);
+                    let selectorRing = "Cart_" + number + "__Ring";
+                    console.log(selectorRing);
+                    let factorRing = $("#" + selectorRing).val();
+                    console.log(factorRing);
+                    let selectorPrijs = "Cart_" + number + "__Prijs";
+                    console.log(selectorPrijs);
+                    let basisprijs = $("#" + selectorPrijs).data("basisprijs");
+                    console.log(basisprijs);
+                    let selectorVak = "Cart_" + number + "__Vak";
+                    let factorVak = $("#" + selectorVak).val();
+                    $('#' + selectorPrijs).val(parseFloat(basisprijs) * parseFloat(factorRing) * parseFloat(factorVak));
+                    let selector = "txtSubTotal" + number;
+                    let aantal = "Cart_" + number + "__Aantal";
+                    $('#' + selector).val($("#" + aantal).val() * parseFloat($("#" + selectorPrijs).val()));
+                    let sum = 0;
+
+                    $('[id^=txtSubTotal').each((index, element) => {
+                        if (!isNaN($(element).val())) {
+                            sum += parseFloat($(element).val());
+                        }
+                    });
+
+                    $('#txtTotal').val(sum);
+
+                });
+
+                $("[id$=Vak]").on('change', (e) => {
+                    console.log("change");
+                    let number = $(e.currentTarget).data("aantal");
+                    console.log(number);
+                    let selectorVak = "Cart_" + number + "__Vak";
+                    console.log(selectorVak);
+                    let factorVak = $("#" + selectorVak).val();
+                    console.log(factorVak);
+                    let selectorPrijs = "Cart_" + number + "__Prijs";
+                    console.log(selectorPrijs);
+                    let basisprijs = $("#" + selectorPrijs).data("basisprijs");
+                    console.log(basisprijs);
+                    let selectorRing = "Cart_" + number + "__Ring";
+                    let factorRing = $("#" + selectorRing).val();
+                    $('#' + selectorPrijs).val(parseFloat(basisprijs) * parseFloat(factorVak) * parseFloat(factorRing));
+                    let selector = "txtSubTotal" + number;
+                    let aantal = "Cart_" + number + "__Aantal";
+                    $('#' + selector).val($("#" + aantal).val() * parseFloat($("#" + selectorPrijs).val()));
+                    let sum = 0;
+
+                    $('[id^=txtSubTotal').each((index, element) => {
+                        if (!isNaN($(element).val())) {
+                            sum += parseFloat($(element).val());
+                        }
+                    });
+
+                    $('#txtTotal').val(sum);
+                });
             });
+            
+        
 
-        });
-
-        // gelijkaardig voor Vak om prijs te berekenen
 
     </script>
 }

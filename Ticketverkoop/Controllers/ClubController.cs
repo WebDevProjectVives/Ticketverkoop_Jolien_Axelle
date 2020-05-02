@@ -104,7 +104,7 @@ namespace Ticketverkoop.Controllers
                 Club_ID = club.ClubId,
                 Naam = club.Naam,
                 Aantal = 1,
-                Prijs = 200, // moet prijs zijn uit de database : RingVakSTadion
+                Prijs = club.Stadion.Basisprijs * 8,// moet prijs zijn uit de database : RingVakSTadion
                 DateCreated = DateTime.Now
             };
 

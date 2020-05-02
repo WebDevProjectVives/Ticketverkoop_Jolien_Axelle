@@ -28,7 +28,8 @@ namespace Ticketverkoop.Repository
             {
 
                 return await _dbContext.Club
-                         .Where(b => b.ClubId == id).FirstOrDefaultAsync();
+                         .Where(c => c.ClubId == id).Include(c => c.Stadion)
+                         .FirstOrDefaultAsync();
             }
             catch (Exception ex)
             { throw ex; }

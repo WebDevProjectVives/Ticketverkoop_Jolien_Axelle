@@ -38,7 +38,7 @@ namespace Ticketverkoop.ViewModel
         public string Ring { get; set; }
         public string Vak { get; set; }
         public int Aantal { get; set; }
-        public float Prijs { get; set; }
+        public decimal Prijs { get; set; }
         public System.DateTime DateCreated { get; set; }
 
     }
