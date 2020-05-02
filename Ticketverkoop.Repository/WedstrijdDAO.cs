@@ -30,7 +30,9 @@ namespace Ticketverkoop.Repository
             {
 
                 return await _dbContext.Wedstrijd
-                         .Where(b => b.WedstrijdId == id).FirstOrDefaultAsync();
+                         .Where(b => b.WedstrijdId == id).Include(b => b.Thuisploeg.Stadion)
+                         .Include(b => b.Thuisploeg).Include(b => b.Uitploeg)
+                         .FirstOrDefaultAsync();
             }
             catch (Exception ex)
             { throw ex; }

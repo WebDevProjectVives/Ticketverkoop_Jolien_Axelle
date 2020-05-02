@@ -106,13 +106,13 @@
 
                 </td>
                 <td>
-                    <input asp-for="@Model.Cart[i].Prijs" type="number"
+                    <input asp-for="@Model.Cart[i].Prijs" 
                            readonly="readonly" />
 
                     @{
                         var subtotaal = Model.Cart[i].Prijs
                                         * Model.Cart[i].Aantal;
-                        total += subtotaal;
+                        total += (float)subtotaal;
                     }
                 </td>
                 <td>

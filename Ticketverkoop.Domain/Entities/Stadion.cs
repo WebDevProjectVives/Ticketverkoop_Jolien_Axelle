@@ -15,7 +15,7 @@ namespace Ticketverkoop.Domain.Entities
         public int StadionId { get; set; }
         public string Naam { get; set; }
         public string Adres { get; set; }
-        public decimal? Basisprijs { get; set; }
+        public decimal Basisprijs { get; set; }
 
         public virtual ICollection<Club> Club { get; set; }
         public virtual ICollection<StadionRingVak> StadionRingVak { get; set; }

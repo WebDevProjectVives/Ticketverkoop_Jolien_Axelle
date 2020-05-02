@@ -134,6 +134,7 @@ namespace Ticketverkoop.Controllers
             return View();
         }
 
+        
         [Authorize]
         public IActionResult Historiek()
         {
