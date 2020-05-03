@@ -39,10 +39,11 @@ namespace Ticketverkoop
             });
 
             // send mail
-            services.AddTransient<IEmailSender, ForgotPasswordEmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("AuthMessageSenderOptions"));
+            /*services.AddTransient<IEmailSender, ForgotPasswordEmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("AuthMessageSenderOptions"));*/
 
-            services.AddTransient<IEmailSender, EmailSender>();
+            //services.AddTransient<IEmailSender, EmailSender>();
+            
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));  // Configuration.GetSection("EmailSettings")) zal de
             // instellingen opvragen uit de AppSettings.json file en vervolgens wordt er een emailsettings‐object aangemaakt en de waarden worden
             // geïnjecteerd in het object

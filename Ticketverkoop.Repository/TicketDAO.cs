@@ -1,31 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Ticketverkoop.Domain.Entities;
 
 namespace Ticketverkoop.Repository
 {
-    public class OrderDAO
+    public class TicketDAO
     {
         private readonly VoetbalContext _dbContext;
 
-        public OrderDAO()
+        public TicketDAO()
         {
             _dbContext = new VoetbalContext();
         }
 
-        /*public IEnumerable<Order> GetAll()
-        {
-            return _dbContext.Order.ToList();
-        }*/
 
-        public void Insert(Order entity)
+        public void Insert(Ticket entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
             _dbContext.SaveChanges();
         }
-
     }
 }

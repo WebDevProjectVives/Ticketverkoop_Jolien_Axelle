@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Ticketverkoop.Controllers
         private RingService ringService;
         private VakService vakService;
         private WedstrijdService _wedstrijdService;
+        private OrderService orderService;
         private readonly IMapper _mapper; 
         public ShoppingCartController(IMapper mapper)
         {
@@ -109,19 +111,29 @@ namespace Ticketverkoop.Controllers
             {
                 Order order;
                 foreach (CartVM cart in carts)
-                {   //create order object
+                {   
+                    //create order object
                     order = new Order();
                     order.UserId = userID;
-                    order.OrderId = cart.Wedstrijd_ID;
+                    //order.OrderId = 0;
                     order.DateCreated = DateTime.UtcNow;
                     //order.Count = cart.Aantal;
                     //call method to save
-                  }
+                    orderService.Insert(order);
+                }
+
+                
 
 
             }
+            catch (DataException ex)
+            {
+                ModelState.AddModelError("","Opslaan niet gelukt");
+            }
             catch (Exception ex)
-            { }
+            {
+                ModelState.AddModelError("", "Bel systeem administrator");
+            }
             
 
             return View();

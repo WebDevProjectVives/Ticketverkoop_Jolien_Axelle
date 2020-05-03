@@ -23,7 +23,8 @@ namespace Ticketverkoop.Util.Mail
             string email, string subject, string message)
         {
             var mail = new MailMessage();  // aanmaken van een mail‐object
-            mail.To.Add(new MailAddress("ticketverkoop.avt.js@gmail.com"));
+            mail.To.Add(new MailAddress(email));
+            //mail.To.Add(new MailAddress("ticketverkoop.avt.js@gmail.com"));
             mail.From = new
                     MailAddress("ticketverkoop.avt.js@gmail.com");
             mail.Subject = subject;
@@ -42,7 +43,7 @@ namespace Ticketverkoop.Util.Mail
                 }
             }
             catch (Exception ex)
-            { throw ex; }
+            { throw new Exception("Mail probleem"); }
         }
     }
 }
