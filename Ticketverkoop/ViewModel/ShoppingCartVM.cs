@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,9 @@ namespace Ticketverkoop.ViewModel
         public string Ring { get; set; }
         public decimal RingFactor { get; set; }
         public string  Vak { get; set; }
+        //int numeer
+        
+        public SelectList Vakken { get; set; }
         public decimal VakFactor { get; set; }
         //public int Ticket_ID { get; set; }
         //public int Abonnement_ID { get; set; }

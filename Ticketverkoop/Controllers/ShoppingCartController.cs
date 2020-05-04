@@ -31,6 +31,7 @@ namespace Ticketverkoop.Controllers
             _mapper = mapper;
             ringService = new RingService();
             vakService = new VakService();
+            
         }
 
         // GET: /<controller>/
@@ -38,8 +39,8 @@ namespace Ticketverkoop.Controllers
         {
             ViewBag.lstRingen = new SelectList(ringService.GetAll(), "Factor", "Naam");
             ViewBag.lstVakken = new SelectList(vakService.GetAll(), "Factor", "Naam");
-
-
+           
+            //vm.vakken = new selectlist(service.all,)
 
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
@@ -121,6 +122,7 @@ namespace Ticketverkoop.Controllers
                 order.DateCreated = DateTime.UtcNow;
                 //order.Count = cart.Aantal;
                 //call method to save
+                orderService = new OrderService();
                 orderService.Insert(order);
 
                 foreach (CartVM cart in carts.Cart)
@@ -128,14 +130,19 @@ namespace Ticketverkoop.Controllers
                     ticket = new Ticket();
                     ticket.WedstrijdId = cart.Wedstrijd_ID;
                     ticket.ZitplaatsNr = 1;
-                    ticket.StadionRingVakId = 1;
+                    //ticket.StadionRingVakId = 
+                    ticket.vak = cart.Vak;
+                    ticket.Ring = cart.Ring;
+                    ticketService = new TicketService();
+                    ticketService.Insert(ticket);
                     //create orderlijn object
                     orderlijn = new Orderlijn();
                     orderlijn.OrderId = order.OrderId;
                     orderlijn.TicketId = ticket.TicketId;
                     //order.Count = cart.Aantal;
                     //call method to save
-                    ticketService.Insert(ticket);
+                    
+                    orderlijnService = new OrderlijnService();
                     orderlijnService.Insert(orderlijn);
                 }
                 /*foreach(AbonnementCartVM abonnementCart in abonnementCarts)
