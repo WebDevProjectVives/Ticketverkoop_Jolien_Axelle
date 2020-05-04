@@ -8,11 +8,11 @@ namespace Ticketverkoop.Repository
 {
     public class RingDAO
     {
-        private readonly VoetbalContext _dbContext;
+        private readonly VoetbalSQLContext _dbContext;
 
         public RingDAO()
         {
-            _dbContext = new VoetbalContext();
+            _dbContext = new VoetbalSQLContext();
         }
 
         public IEnumerable<Ring> GetAll()

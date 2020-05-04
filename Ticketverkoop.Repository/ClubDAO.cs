@@ -10,11 +10,11 @@ namespace Ticketverkoop.Repository
 {
     public class ClubDAO
     {
-        private readonly VoetbalContext _dbContext;
+        private readonly VoetbalSQLContext _dbContext;
 
         public ClubDAO()
         {
-            _dbContext = new VoetbalContext();
+            _dbContext = new VoetbalSQLContext();
         }
 
         public IEnumerable<Club> GetAll()

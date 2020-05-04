@@ -9,11 +9,11 @@ namespace Ticketverkoop.Repository
 {
     public class OrderDAO
     {
-        private readonly VoetbalContext _dbContext;
+        private readonly VoetbalSQLContext _dbContext;
 
         public OrderDAO()
         {
-            _dbContext = new VoetbalContext();
+            _dbContext = new VoetbalSQLContext();
         }
 
         /*public IEnumerable<Order> GetAll()

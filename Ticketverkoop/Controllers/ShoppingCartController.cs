@@ -23,6 +23,8 @@ namespace Ticketverkoop.Controllers
         private VakService vakService;
         private WedstrijdService _wedstrijdService;
         private OrderService orderService;
+        private OrderlijnService orderlijnService;
+        private TicketService ticketService;
         private readonly IMapper _mapper; 
         public ShoppingCartController(IMapper mapper)
         {
@@ -100,7 +102,7 @@ namespace Ticketverkoop.Controllers
 
         [Authorize]  // je moet ingelogd zijn om deze action aan te spreken
         [HttpPost]
-        public ActionResult Payment(List<CartVM> carts)
+        public ActionResult Payment(ShoppingCartVM carts)
         {
 
             //  opvragen ID ingelogde User
@@ -110,17 +112,37 @@ namespace Ticketverkoop.Controllers
             try
             {
                 Order order;
-                foreach (CartVM cart in carts)
-                {   
-                    //create order object
-                    order = new Order();
-                    order.UserId = userID;
-                    //order.OrderId = 0;
-                    order.DateCreated = DateTime.UtcNow;
+                Orderlijn orderlijn;
+                Ticket ticket;
+                //create order object
+                order = new Order();
+                order.UserId = userID;
+                //order.OrderId = 0;
+                order.DateCreated = DateTime.UtcNow;
+                //order.Count = cart.Aantal;
+                //call method to save
+                orderService.Insert(order);
+
+                foreach (CartVM cart in carts.Cart)
+                {
+                    ticket = new Ticket();
+                    ticket.WedstrijdId = cart.Wedstrijd_ID;
+                    ticket.ZitplaatsNr = 1;
+                    ticket.StadionRingVakId = 1;
+                    //create orderlijn object
+                    orderlijn = new Orderlijn();
+                    orderlijn.OrderId = order.OrderId;
+                    orderlijn.TicketId = ticket.TicketId;
                     //order.Count = cart.Aantal;
                     //call method to save
-                    orderService.Insert(order);
+                    ticketService.Insert(ticket);
+                    orderlijnService.Insert(orderlijn);
                 }
+                /*foreach(AbonnementCartVM abonnementCart in abonnementCarts)
+                {
+                    order = new Order();
+
+                }*/
 
                 
 

@@ -7,7 +7,7 @@ namespace Ticketverkoop.ViewModel
 {
     public class OrderVM
     {
-        public List<OrderlijnVM> Cart { get; set; }
+        /*public List<OrderlijnVM> Orderlijn { get; set; }*/
         public int User_ID { get; set; }
         public DateTime Date_Created { get; set; }
 

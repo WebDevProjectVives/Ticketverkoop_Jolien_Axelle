@@ -8,11 +8,11 @@ namespace Ticketverkoop.Repository
 {
     public class TicketDAO
     {
-        private readonly VoetbalContext _dbContext;
+        private readonly VoetbalSQLContext _dbContext;
 
         public TicketDAO()
         {
-            _dbContext = new VoetbalContext();
+            _dbContext = new VoetbalSQLContext();
         }
 
 

@@ -30,7 +30,7 @@ namespace Ticketverkoop.ViewModel
         public System.DateTime DateCreated { get; set; }
 
     }
-
+    
     public class AbonnementCartVM
     {
         public int Club_ID { get; set; }
@@ -42,4 +42,5 @@ namespace Ticketverkoop.ViewModel
         public System.DateTime DateCreated { get; set; }
 
     }
+    
 }
