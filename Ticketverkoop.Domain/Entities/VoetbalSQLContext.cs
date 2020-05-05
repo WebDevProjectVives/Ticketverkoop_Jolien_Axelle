@@ -334,17 +334,25 @@ namespace Ticketverkoop.Domain.Entities
             {
                 entity.Property(e => e.TicketId).HasColumnName("Ticket_ID");
 
-                entity.Property(e => e.StadionRingVakId).HasColumnName("Stadion_Ring_Vak_ID");
+                entity.Property(e => e.RingId).HasColumnName("Ring_ID");
+
+                entity.Property(e => e.VakId).HasColumnName("Vak_ID");
 
                 entity.Property(e => e.WedstrijdId).HasColumnName("Wedstrijd_ID");
 
                 entity.Property(e => e.ZitplaatsNr).HasColumnName("Zitplaats_Nr");
 
-                entity.HasOne(d => d.StadionRingVak)
+                entity.HasOne(d => d.Ring)
                     .WithMany(p => p.Ticket)
-                    .HasForeignKey(d => d.StadionRingVakId)
+                    .HasForeignKey(d => d.RingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ticket_Stadion_Ring_Vak");
+                    .HasConstraintName("FK_Ticket_Ring");
+
+                entity.HasOne(d => d.Vak)
+                    .WithMany(p => p.Ticket)
+                    .HasForeignKey(d => d.VakId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Ticket_Vak");
 
                 entity.HasOne(d => d.Wedstrijd)
                     .WithMany(p => p.Ticket)

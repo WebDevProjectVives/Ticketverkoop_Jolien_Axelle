@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Ticketverkoop.Domain.Entities;
 using Ticketverkoop.Repository;
 
@@ -12,6 +13,11 @@ namespace Ticketverkoop.Service
         public OrderService()
         {
             _orderDAO = new OrderDAO();
+        }
+
+        public async Task<Order> Get(int id)
+        {
+            return await _orderDAO.Get(id);
         }
 
         public void Insert(Order entity)

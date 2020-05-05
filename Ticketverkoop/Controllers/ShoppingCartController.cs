@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Ticketverkoop.Domain.Entities;
 using Ticketverkoop.Extensions;
 using Ticketverkoop.Service;
+using Ticketverkoop.Util.Mail;
 using Ticketverkoop.ViewModel;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,10 +26,12 @@ namespace Ticketverkoop.Controllers
         private OrderService orderService;
         private OrderlijnService orderlijnService;
         private TicketService ticketService;
-        private readonly IMapper _mapper; 
-        public ShoppingCartController(IMapper mapper)
+        private readonly IMapper _mapper;
+        private readonly IEmailSender _emailSender;
+        public ShoppingCartController(IMapper mapper, IEmailSender emailSender)
         {
             _mapper = mapper;
+            _emailSender = emailSender;
             ringService = new RingService();
             vakService = new VakService();
             
@@ -39,12 +42,17 @@ namespace Ticketverkoop.Controllers
         {
             ViewBag.lstRingen = new SelectList(ringService.GetAll(), "Factor", "Naam");
             ViewBag.lstVakken = new SelectList(vakService.GetAll(), "Factor", "Naam");
-           
+
             //vm.vakken = new selectlist(service.all,)
+            //var cartVM = new CartVM();
+            //CartVM cartVM = new CartVM();
+            //cartVM.Vakken = new SelectList(vakService.GetAll(), "Factor", "Naam");
+            //cartVM.Ringen = new SelectList(ringService.GetAll(), "Factor", "Naam");
 
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
+            
 
             return View(cartList);
         }
@@ -131,8 +139,8 @@ namespace Ticketverkoop.Controllers
                     ticket.WedstrijdId = cart.Wedstrijd_ID;
                     ticket.ZitplaatsNr = 1;
                     //ticket.StadionRingVakId = 
-                    ticket.vak = cart.Vak;
-                    ticket.Ring = cart.Ring;
+                    ticket.VakId = /*cart.VakId*/ 1;
+                    ticket.RingId = /*cart.RingId*/ 1;
                     ticketService = new TicketService();
                     ticketService.Insert(ticket);
                     //create orderlijn object
@@ -151,9 +159,7 @@ namespace Ticketverkoop.Controllers
 
                 }*/
 
-                
-
-
+                _emailSender.SendEmailAsync(User.Identity.Name, "bevestiging van betaling", "dit is een test");
             }
             catch (DataException ex)
             {
@@ -163,8 +169,9 @@ namespace Ticketverkoop.Controllers
             {
                 ModelState.AddModelError("", "Bel systeem administrator");
             }
-            
 
+
+            
             return View();
         }
 

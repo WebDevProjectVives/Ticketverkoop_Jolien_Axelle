@@ -13,9 +13,11 @@ namespace Ticketverkoop.Domain.Entities
         public int TicketId { get; set; }
         public int WedstrijdId { get; set; }
         public int ZitplaatsNr { get; set; }
-        public int StadionRingVakId { get; set; }
+        public int RingId { get; set; }
+        public int VakId { get; set; }
 
-        public virtual StadionRingVak StadionRingVak { get; set; }
+        public virtual Ring Ring { get; set; }
+        public virtual Vak Vak { get; set; }
         public virtual Wedstrijd Wedstrijd { get; set; }
         public virtual ICollection<Orderlijn> Orderlijn { get; set; }
     }
