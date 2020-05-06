@@ -14,9 +14,14 @@ namespace Ticketverkoop.Service
             _ticketDAO = new TicketDAO();
         }
 
-        public Ticket Get(int id)
+        public Ticket Get(int? id)
         {
             return _ticketDAO.Get(id);
+        }
+
+        public List<Ticket> GetTickets(int id)
+        {
+            return _ticketDAO.GetTickets(id);
         }
 
         public void Insert(Ticket entity)

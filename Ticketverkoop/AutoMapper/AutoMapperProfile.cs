@@ -35,6 +35,16 @@ namespace Ticketverkoop.AutoMapper
                 opts => opts.MapFrom(
                     src => src.Uitploeg.Naam));
 
+            CreateMap<Wedstrijd, HistoriekVM>().ForMember(dest => dest.Thuisploeg,
+                opts => opts.MapFrom(
+                    src => src.Thuisploeg.Naam))
+            .ForMember(dest => dest.Uitploeg,
+                opts => opts.MapFrom(
+                    src => src.Uitploeg.Naam))
+            .ForMember(dest => dest.Datum,
+                opts => opts.MapFrom(
+                    src => src.Datum));
+
         }
     }
 }

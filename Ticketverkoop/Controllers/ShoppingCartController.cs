@@ -5,6 +5,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+//using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +15,8 @@ using Ticketverkoop.Extensions;
 using Ticketverkoop.Service;
 using Ticketverkoop.Util.Mail;
 using Ticketverkoop.ViewModel;
+using Microsoft.AspNetCore.Http;
+using Ticketverkoop.Areas.Identity.Data;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,13 +32,17 @@ namespace Ticketverkoop.Controllers
         private TicketService ticketService;
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailSender;
-        public ShoppingCartController(IMapper mapper, IEmailSender emailSender)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public ShoppingCartController(IMapper mapper, IEmailSender emailSender, UserManager<ApplicationUser> userManager)
         {
             _mapper = mapper;
             _emailSender = emailSender;
+            orderService = new OrderService();
+            orderlijnService = new OrderlijnService();
+            ticketService = new TicketService();
             ringService = new RingService();
             vakService = new VakService();
-            
+            _userManager = userManager;
         }
 
         // GET: /<controller>/
@@ -186,8 +194,28 @@ namespace Ticketverkoop.Controllers
         [Authorize]
         public IActionResult Historiek()
         {
-            var list = _wedstrijdService.GetAll();
-            List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(list);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IEnumerable<Order> orders = orderService.OrdersPerUser(userId);
+
+            List<Orderlijn> orderlijnen = new List<Orderlijn>();
+
+            foreach (Order order in orders)
+            {
+                orderlijnen = orderlijnService.OrderlijnPerOrder(order.OrderId);
+                //orderlijnen.Add(orderlijnService.OrderlijnPerOrder(order.OrderId));
+                //orderlijnen.ToList().Add(orderlijnService.OrderlijnPerOrder(order.OrderId));
+                //orderlijnen.AddRange()
+            }
+            IEnumerable<Ticket> tickets = new List<Ticket>();
+
+            foreach (Orderlijn orderlijn in orderlijnen)
+            {
+                var ticketId = Convert.ToInt32(orderlijn.TicketId);
+                tickets = ticketService.GetTickets(ticketId);
+            }
+            /*var list = _wedstrijdService.GetAll();*/
+            List<HistoriekVM> listVM = _mapper.Map<List<HistoriekVM>>(tickets);
+
             return View(listVM);
         }
     }

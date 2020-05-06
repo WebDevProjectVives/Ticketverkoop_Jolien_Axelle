@@ -16,7 +16,7 @@ namespace Ticketverkoop.Repository
             _dbContext = new VoetbalSQLContext();
         }
 
-        public IEnumerable<Orderlijn> OrderlijnPerTicket(int orderId)
+        public List<Orderlijn> OrderlijnPerOrder(int orderId)
         {
             return _dbContext.Orderlijn.Where(o => o.OrderId == orderId)
                 .ToList();

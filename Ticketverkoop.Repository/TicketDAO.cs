@@ -16,13 +16,18 @@ namespace Ticketverkoop.Repository
             _dbContext = new VoetbalSQLContext();
         }
 
-        public Ticket Get(int id)
+        public Ticket Get(int? id)
         {
             return _dbContext.Ticket
                 .Where(t => t.TicketId == id).Include(t => t.Ring).Include(t => t.Vak).Include(t => t.Wedstrijd)
                 .FirstOrDefault(); // -> null, zonder dit wordt er geen execute uitgevoerd!
         }
 
+        public List<Ticket> GetTickets(int? id)
+        {
+            return _dbContext.Ticket.Where(t => t.TicketId == id)
+                .ToList();
+        }
 
         public void Insert(Ticket entity)
         {
