@@ -28,7 +28,7 @@ namespace Ticketverkoop.Util.Mail
             mail.From = new
                     MailAddress("ticketverkoop.avt.js@gmail.com");
             mail.Subject = subject;
-            mail.Body = email + "\n" + message;
+            mail.Body = message;
             mail.IsBodyHtml = true;
             try
             {

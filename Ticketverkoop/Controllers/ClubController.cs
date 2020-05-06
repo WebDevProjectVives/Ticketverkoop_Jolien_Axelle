@@ -23,7 +23,7 @@ namespace Ticketverkoop.Controllers
 
         public ClubController(IMapper mapper)
         {
-            _clubService = new ClubService();
+            //_clubService = new ClubService();
             _mapper = mapper;
         }
 

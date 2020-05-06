@@ -152,14 +152,21 @@ namespace Ticketverkoop.Controllers
                     
                     orderlijnService = new OrderlijnService();
                     orderlijnService.Insert(orderlijn);
+
+                    Ticket ticket2 = ticketService.Get(ticket.TicketId);
+                    _emailSender.SendEmailAsync(User.Identity.Name, "bevestiging van betaling", "Ticket id: " + ticket2.TicketId + "\r Datum: " + ticket2.Wedstrijd.Datum + "\r\n Ring: " + ticket2.Ring.Naam + "\n Vak: " + ticket2.Vak.Naam + "\n\r Zitplaats: " + ticket2.ZitplaatsNr);
                 }
-                /*foreach(AbonnementCartVM abonnementCart in abonnementCarts)
+                /*foreach(AbonnementCartVM abonnementCart in carts.AbonnementCart)
                 {
-                    order = new Order();
+                    abonnement = new Abonnement();
+                    abonnement.ClubId = abonnementCart.Order_ID;
+
+                    orderlijn = new Orderlijn();
+                    orderlijn.OrderId = order.OrderId;
+                    orderlijn.AbonnementId = abonnement.AbonnementId;
 
                 }*/
 
-                _emailSender.SendEmailAsync(User.Identity.Name, "bevestiging van betaling", "dit is een test");
             }
             catch (DataException ex)
             {

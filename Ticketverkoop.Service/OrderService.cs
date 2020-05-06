@@ -20,6 +20,11 @@ namespace Ticketverkoop.Service
             return await _orderDAO.Get(id);
         }
 
+        public IEnumerable<Order> OrdersPerUser(string userId)
+        {
+            return _orderDAO.OrdersPerUser(userId);
+        }
+
         public void Insert(Order entity)
         {
             _orderDAO.Insert(entity);

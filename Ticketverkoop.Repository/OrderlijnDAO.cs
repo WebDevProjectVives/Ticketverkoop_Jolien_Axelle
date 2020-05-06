@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Ticketverkoop.Domain.Entities;
 
@@ -15,6 +16,20 @@ namespace Ticketverkoop.Repository
             _dbContext = new VoetbalSQLContext();
         }
 
+        public IEnumerable<Orderlijn> OrderlijnPerTicket(int orderId)
+        {
+            return _dbContext.Orderlijn.Where(o => o.OrderId == orderId)
+                .ToList();
+        }
+
+        /*
+        public IEnumerable<Orderlijn> OrderlijnPerTicket(IEnumerable<Order> orders)
+        {
+                return _dbContext.Orderlijn
+                   .Where(o => o.OrderId == order.OrderId)
+                   orders.ToList().ForEach(o => o.OrderId);
+            
+        }*/
 
         public void Insert(Orderlijn entity)
         {

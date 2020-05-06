@@ -35,6 +35,13 @@ namespace Ticketverkoop.Repository
             { throw ex; }
         }
 
+        public IEnumerable<Order> OrdersPerUser(string userId)
+        {
+            return _dbContext.Order
+               .Where(b => b.UserId == userId)
+               .ToList();
+        }
+
         public void Insert(Order entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
