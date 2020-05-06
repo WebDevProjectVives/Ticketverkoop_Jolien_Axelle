@@ -214,9 +214,9 @@ namespace Ticketverkoop.Controllers
                 tickets = ticketService.GetTickets(ticketId);
             }
             /*var list = _wedstrijdService.GetAll();*/
-            List<HistoriekVM> listVM = _mapper.Map<List<HistoriekVM>>(tickets);
+            //List<HistoriekVM> listVM = _mapper.Map<List<HistoriekVM>>(tickets);
 
-            return View(listVM);
+            return View(tickets);
         }
     }
 }
