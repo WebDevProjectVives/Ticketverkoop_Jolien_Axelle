@@ -13,7 +13,7 @@ namespace Ticketverkoop.Domain.Entities
 
         public int RingId { get; set; }
         public string Naam { get; set; }
-        public decimal Factor { get; set; }
+        public string RingFactor { get; set; }
 
         public virtual ICollection<StadionRingVak> StadionRingVak { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }

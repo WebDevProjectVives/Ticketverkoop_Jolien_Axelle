@@ -23,11 +23,11 @@ namespace Ticketverkoop.ViewModel
         public string Ring { get; set; }
         public int RingId { get; set; }
         public SelectList Ringen { get; set; }
-        public decimal RingFactor { get; set; }
+        public string RingFactor { get; set; }
         public string  Vak { get; set; }
         public int VakId { get; set; }
         public SelectList Vakken { get; set; }
-        public decimal VakFactor { get; set; }
+        public string VakFactor { get; set; }
         //public int Ticket_ID { get; set; }
         //public int Abonnement_ID { get; set; }
         public int Aantal { get; set; }

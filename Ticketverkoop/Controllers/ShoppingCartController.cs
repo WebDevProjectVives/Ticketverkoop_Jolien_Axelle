@@ -48,9 +48,7 @@ namespace Ticketverkoop.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            ViewBag.lstRingen = new SelectList(ringService.GetAll(), "Factor", "Naam");
-            ViewBag.lstVakken = new SelectList(vakService.GetAll(), "Factor", "Naam");
-
+            
             //vm.vakken = new selectlist(service.all,)
             //var cartVM = new CartVM();
             //CartVM cartVM = new CartVM();
@@ -60,7 +58,16 @@ namespace Ticketverkoop.Controllers
             ShoppingCartVM cartList =
                 HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
-            
+            //ViewBag.lstRingen = new SelectList(ringService.GetAll(), "Factor", "Naam");
+            //ViewBag.lstVakken = new SelectList(vakService.GetAll(), "Factor", "Naam");
+            if(cartList != null)
+            {
+                foreach (CartVM cart in cartList.Cart)
+                {
+                    cart.Ringen = new SelectList(ringService.GetAll(), "RingFactor", "Naam");
+                    cart.Vakken = new SelectList(vakService.GetAll(), "VakFactor", "Naam");
+                }
+            }
 
             return View(cartList);
         }
@@ -78,7 +85,6 @@ namespace Ticketverkoop.Controllers
 
             var itemToRemove =
                 cartList.Cart.FirstOrDefault(r => r.Wedstrijd_ID == wedstrijd_ID);
-            // db.bieren.FirstOrDefault (r => 
 
             if (itemToRemove != null)
             {
@@ -104,7 +110,6 @@ namespace Ticketverkoop.Controllers
 
             var itemToRemove =
                 cartList.AbonnementCart.FirstOrDefault(r => r.Club_ID == club_ID);
-            // db.bieren.FirstOrDefault (r => 
 
             if (itemToRemove != null)
             {
@@ -147,8 +152,8 @@ namespace Ticketverkoop.Controllers
                     ticket.WedstrijdId = cart.Wedstrijd_ID;
                     ticket.ZitplaatsNr = 1;
                     //ticket.StadionRingVakId = 
-                    ticket.VakId = /*cart.VakId*/ 1;
-                    ticket.RingId = /*cart.RingId*/ 1;
+                    ticket.VakId = Convert.ToInt32(cart.VakFactor.Substring(0,1));
+                    ticket.RingId = Convert.ToInt32(cart.RingFactor.Substring(0,1));
                     ticketService = new TicketService();
                     ticketService.Insert(ticket);
                     //create orderlijn object

@@ -260,9 +260,11 @@ namespace Ticketverkoop.Domain.Entities
                     .HasColumnName("Ring_ID")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Factor).HasColumnType("numeric(18, 0)");
-
                 entity.Property(e => e.Naam)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.RingFactor)
                     .IsRequired()
                     .HasMaxLength(50);
             });
@@ -367,9 +369,11 @@ namespace Ticketverkoop.Domain.Entities
                     .HasColumnName("Vak_ID")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Factor).HasColumnType("numeric(18, 0)");
-
                 entity.Property(e => e.Naam)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.VakFactor)
                     .IsRequired()
                     .HasMaxLength(50);
             });

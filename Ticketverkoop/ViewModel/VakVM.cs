@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Ticketverkoop.ViewModel
 {
-    public class RingVM
+    public class VakVM
     {
-        public int RingId { get; set; }
+        public int VakId { get; set; }
         public string Naam { get; set; }
-        public string RingFactor { get; set; }
+        public string VakFactor { get; set; }
 
     }
 }
