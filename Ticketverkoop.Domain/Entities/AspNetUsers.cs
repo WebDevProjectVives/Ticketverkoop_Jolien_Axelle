@@ -12,6 +12,7 @@ namespace Ticketverkoop.Domain.Entities
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
             Order = new HashSet<Order>();
+            Ticket = new HashSet<Ticket>();
         }
 
         public string Id { get; set; }
@@ -37,5 +38,6 @@ namespace Ticketverkoop.Domain.Entities
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

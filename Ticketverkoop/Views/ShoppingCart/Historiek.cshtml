@@ -6,12 +6,20 @@
 
 <h1>Historiek</h1>
 
-
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TicketId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Thuisploeg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uitploeg)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ZitplaatsNr)
@@ -22,7 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Vak)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +37,15 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.TicketId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Thuisploeg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uitploeg)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ZitplaatsNr)

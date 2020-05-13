@@ -338,6 +338,11 @@ namespace Ticketverkoop.Domain.Entities
 
                 entity.Property(e => e.RingId).HasColumnName("Ring_ID");
 
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnName("User_ID")
+                    .HasMaxLength(450);
+
                 entity.Property(e => e.VakId).HasColumnName("Vak_ID");
 
                 entity.Property(e => e.WedstrijdId).HasColumnName("Wedstrijd_ID");
@@ -349,6 +354,12 @@ namespace Ticketverkoop.Domain.Entities
                     .HasForeignKey(d => d.RingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Ticket_Ring");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Ticket)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Ticket_User");
 
                 entity.HasOne(d => d.Vak)
                     .WithMany(p => p.Ticket)

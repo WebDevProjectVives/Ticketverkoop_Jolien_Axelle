@@ -154,6 +154,7 @@ namespace Ticketverkoop.Controllers
                     //ticket.StadionRingVakId = 
                     ticket.VakId = Convert.ToInt32(cart.VakFactor.Substring(0,1));
                     ticket.RingId = Convert.ToInt32(cart.RingFactor.Substring(0,1));
+                    ticket.UserId = userID;
                     ticketService = new TicketService();
                     ticketService.Insert(ticket);
                     //create orderlijn object
@@ -199,6 +200,7 @@ namespace Ticketverkoop.Controllers
         [Authorize]
         public IActionResult Historiek()
         {
+            /*
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             IEnumerable<Order> orders = orderService.OrdersPerUser(userId);
 
@@ -218,10 +220,15 @@ namespace Ticketverkoop.Controllers
                 var ticketId = Convert.ToInt32(orderlijn.TicketId);
                 tickets = ticketService.GetTickets(ticketId);
             }
+            */
             /*var list = _wedstrijdService.GetAll();*/
             //List<HistoriekVM> listVM = _mapper.Map<List<HistoriekVM>>(tickets);
 
-            return View(tickets);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var list = ticketService.TicketsPerUser(userId);
+            List<HistoriekVM> listVM = _mapper.Map<List<HistoriekVM>>(list);
+
+            return View(listVM);
         }
     }
 }

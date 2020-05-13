@@ -19,6 +19,11 @@ namespace Ticketverkoop.Service
             return _ticketDAO.Get(id);
         }
 
+        public IEnumerable<Ticket> TicketsPerUser(string userId)
+        {
+            return _ticketDAO.TicketsPerUser(userId);
+        }
+
         public List<Ticket> GetTickets(int id)
         {
             return _ticketDAO.GetTickets(id);
