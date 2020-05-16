@@ -139,44 +139,62 @@ namespace Ticketverkoop.Controllers
 
                 foreach (CartVM cart in carts.Cart)
                 {
-                    for (var i = 0; i < cart.Aantal; i++)
+                    ICollection<Ticket> ticketsUser = ticketService.TicketsPerUserPerWedstrijd(userID, cart.Wedstrijd_ID);
+                    if (ticketsUser.Count + cart.Aantal <= 10)
                     {
-                        ticket = new Ticket();
-                        ticket.WedstrijdId = cart.Wedstrijd_ID;
-                        ticket.VakId = Convert.ToInt32(cart.VakFactor.Substring(0, 1));
-                        ticket.RingId = Convert.ToInt32(cart.RingFactor.Substring(0, 1));
 
-                        stadionRingVakService = new StadionRingVakService();
-                        _wedstrijdService = new WedstrijdService();
-                        Wedstrijd wedstrijd = _wedstrijdService.GetWedstrijd(ticket.WedstrijdId);
-                        var aantalZitplaatsen = stadionRingVakService.AantalZitplaatsenPerVak(wedstrijd.StadionId, ticket.RingId, ticket.VakId);
-                        IEnumerable<Ticket> tickets = ticketService.TicketsPerWedstrijd(ticket.WedstrijdId, ticket.RingId, ticket.VakId);
-
-                        int zitplaatsVrij = 1;
-                        int j = 1;
-                        foreach (Ticket ticket1 in tickets)
+                        for (var i = 0; i < cart.Aantal; i++)
                         {
-                            if (ticket1.ZitplaatsNr != j)
+                            ticket = new Ticket();
+                            ticket.WedstrijdId = cart.Wedstrijd_ID;
+                            ticket.VakId = Convert.ToInt32(cart.VakFactor.Substring(0, 1));
+                            ticket.RingId = Convert.ToInt32(cart.RingFactor.Substring(0, 1));
+
+                            stadionRingVakService = new StadionRingVakService();
+                            _wedstrijdService = new WedstrijdService();
+                            Wedstrijd wedstrijd = _wedstrijdService.GetWedstrijd(ticket.WedstrijdId);
+                            var aantalZitplaatsen = stadionRingVakService.AantalZitplaatsenPerVak(wedstrijd.StadionId, ticket.RingId, ticket.VakId);
+                            IEnumerable<Ticket> tickets = ticketService.TicketsPerWedstrijd(ticket.WedstrijdId, ticket.RingId, ticket.VakId);
+
+                            if (tickets.Count() + cart.Aantal <= aantalZitplaatsen.AantalZitplaatsen)
                             {
-                                break;
+                                int zitplaatsVrij = 1;
+                                int j = 1;
+                                foreach (Ticket ticket1 in tickets)
+                                {
+                                    if (ticket1.ZitplaatsNr != j)
+                                    {
+                                        break;
+                                    }
+                                    j++;
+                                }
+                                zitplaatsVrij = j;
+                                ticket.ZitplaatsNr = zitplaatsVrij;
+                                ticket.UserId = userID;
+                                ticketService = new TicketService();
+                                ticketService.Insert(ticket);
+                                //create orderlijn object
+                                orderlijn = new Orderlijn();
+                                orderlijn.OrderId = order.OrderId;
+                                orderlijn.TicketId = ticket.TicketId;
+
+                                orderlijnService = new OrderlijnService();
+                                orderlijnService.Insert(orderlijn);
+
+                                Ticket ticket2 = ticketService.Get(ticket.TicketId);
+                                _emailSender.SendEmailAsync(User.Identity.Name, "bevestiging van betaling", "Ticket id: " + ticket2.TicketId + "\r Datum: " + ticket2.Wedstrijd.Datum + "\r\n Ring: " + ticket2.Ring.Naam + "\n Vak: " + ticket2.Vak.Naam + "\n\r Zitplaats: " + ticket2.ZitplaatsNr);
+
                             }
-                            j++;
+                            else
+                            {
+                                ViewBag.Message = "Er zijn onvoldoende zitplaatsen beschikbaar in het geselecteerde vak. Uw betaling is dus niet gelukt.";
+                            }
                         }
-                        zitplaatsVrij = j;
-                        ticket.ZitplaatsNr = zitplaatsVrij;
-                        ticket.UserId = userID;
-                        ticketService = new TicketService();
-                        ticketService.Insert(ticket);
-                        //create orderlijn object
-                        orderlijn = new Orderlijn();
-                        orderlijn.OrderId = order.OrderId;
-                        orderlijn.TicketId = ticket.TicketId;
 
-                        orderlijnService = new OrderlijnService();
-                        orderlijnService.Insert(orderlijn);
-
-                        Ticket ticket2 = ticketService.Get(ticket.TicketId);
-                        _emailSender.SendEmailAsync(User.Identity.Name, "bevestiging van betaling", "Ticket id: " + ticket2.TicketId + "\r Datum: " + ticket2.Wedstrijd.Datum + "\r\n Ring: " + ticket2.Ring.Naam + "\n Vak: " + ticket2.Vak.Naam + "\n\r Zitplaats: " + ticket2.ZitplaatsNr);
+                    }
+                    else
+                    {
+                        ViewBag.Message = "U kan maximum 10 tickets kopen per match. U heeft het maximum bereikt. Uw betaling is niet gelukt.";
                     }
                 }
                 /*foreach(AbonnementCartVM abonnementCart in carts.AbonnementCart)
@@ -268,7 +286,7 @@ namespace Ticketverkoop.Controllers
                 ticketService.Delete(ticket);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", "Bel systeem administrator");
                 return View();

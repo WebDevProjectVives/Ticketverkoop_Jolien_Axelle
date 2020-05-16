@@ -18,6 +18,10 @@ namespace Ticketverkoop.Service
         {
             return _ticketDAO.Get(id);
         }
+        public ICollection<Ticket> TicketsPerUserPerWedstrijd(string userId, int wedstrijdId)
+        {
+            return _ticketDAO.TicketsPerUserPerWedstrijd(userId, wedstrijdId);
+        }
 
         public IEnumerable<Ticket> TicketsPerUser(string userId)
         {

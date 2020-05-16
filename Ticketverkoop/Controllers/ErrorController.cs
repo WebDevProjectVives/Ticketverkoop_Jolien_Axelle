@@ -22,5 +22,6 @@ namespace Ticketverkoop.Controllers
             return View();
         }
 
+
     }
 }
