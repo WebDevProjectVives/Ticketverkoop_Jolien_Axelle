@@ -34,7 +34,7 @@ namespace Ticketverkoop.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var list = _wedstrijdService.GetAll();
+            var list = _wedstrijdService.GetAllAankopen();
             List<WedstrijdVM> listVM = _mapper.Map<List<WedstrijdVM>>(list);
             return View(listVM);
         }

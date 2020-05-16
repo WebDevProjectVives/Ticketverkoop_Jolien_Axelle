@@ -14,6 +14,11 @@ namespace Ticketverkoop.Service
             _orderlijnDAO = new OrderlijnDAO();
         }
 
+        public Orderlijn GetOrderlijnVanTicket(int? id)
+        {
+            return _orderlijnDAO.GetOrderlijnVanTicket(id);
+        }
+
         public List<Orderlijn> OrderlijnPerOrder(int orderId)
         {
             return _orderlijnDAO.OrderlijnPerOrder(orderId);
@@ -21,6 +26,10 @@ namespace Ticketverkoop.Service
         public void Insert(Orderlijn entity)
         {
             _orderlijnDAO.Insert(entity);
+        }
+        public void Delete(Orderlijn entity)
+        {
+            _orderlijnDAO.Delete(entity);
         }
     }
 }

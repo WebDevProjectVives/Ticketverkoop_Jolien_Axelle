@@ -42,7 +42,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Stadion)
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -60,9 +59,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Stadion)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Koop tickets", "Select", "Wedstrijd", new { id = item.WedstrijdId })
                     </td>
                 </tr>
             }

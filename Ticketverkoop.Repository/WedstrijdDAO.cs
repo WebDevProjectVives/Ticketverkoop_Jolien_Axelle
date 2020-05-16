@@ -24,18 +24,33 @@ namespace Ticketverkoop.Repository
                 .Include(w => w.Stadion).ToList();
         }
 
+        public IEnumerable<Wedstrijd> GetAllAankopen()
+        {
+            return _dbContext.Wedstrijd.Where(w => w.Datum <= DateTime.Today.AddMonths(1))
+                .Include(w => w.Thuisploeg)
+                .Include(w => w.Uitploeg)
+                .Include(w => w.Stadion).ToList();
+        }
+
         public async Task<Wedstrijd> Get(int id)
         {
             try
             {
 
                 return await _dbContext.Wedstrijd
-                         .Where(b => b.WedstrijdId == id).Include(b => b.Thuisploeg.Stadion)
-                         .Include(b => b.Thuisploeg).Include(b => b.Uitploeg)
+                         .Where(w => w.WedstrijdId == id).Include(w => w.Thuisploeg.Stadion)
+                         .Include(w => w.Thuisploeg).Include(w => w.Uitploeg)
                          .FirstOrDefaultAsync();
             }
             catch (Exception ex)
             { throw ex; }
+        }
+
+        public Wedstrijd GetWedstrijd(int id)
+        {
+            return _dbContext.Wedstrijd
+                .Where(w => w.WedstrijdId == id).Include(w => w.Stadion)
+                .FirstOrDefault(); // -> null, zonder dit wordt er geen execute uitgevoerd!
         }
 
         public IEnumerable<Wedstrijd> WedstrijdenPerClub(int ploegId)

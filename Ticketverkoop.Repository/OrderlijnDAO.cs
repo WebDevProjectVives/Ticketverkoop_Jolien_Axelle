@@ -16,6 +16,13 @@ namespace Ticketverkoop.Repository
             _dbContext = new VoetbalSQLContext();
         }
 
+        public Orderlijn GetOrderlijnVanTicket(int? id)
+        {
+            return _dbContext.Orderlijn
+                .Where(o => o.TicketId == id)
+                .FirstOrDefault(); // -> null, zonder dit wordt er geen execute uitgevoerd!
+        }
+
         public List<Orderlijn> OrderlijnPerOrder(int orderId)
         {
             return _dbContext.Orderlijn.Where(o => o.OrderId == orderId)
@@ -34,6 +41,12 @@ namespace Ticketverkoop.Repository
         public void Insert(Orderlijn entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.SaveChanges();
+        }
+
+        public void Delete(Orderlijn entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Deleted;
             _dbContext.SaveChanges();
         }
     }

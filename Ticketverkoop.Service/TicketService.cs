@@ -24,6 +24,16 @@ namespace Ticketverkoop.Service
             return _ticketDAO.TicketsPerUser(userId);
         }
 
+        public IEnumerable<Ticket> TicketsPerUserAnnuleren(string userId)
+        {
+            return _ticketDAO.TicketsPerUserAnnuleren(userId);
+        }
+
+        public IEnumerable<Ticket> TicketsPerWedstrijd(int wedstrijdId, int ringId, int vakId)
+        {
+            return _ticketDAO.TicketsPerWedstrijd(wedstrijdId, ringId, vakId);
+        }
+
         public List<Ticket> GetTickets(int id)
         {
             return _ticketDAO.GetTickets(id);
@@ -32,6 +42,11 @@ namespace Ticketverkoop.Service
         public void Insert(Ticket entity)
         {
             _ticketDAO.Insert(entity);
+        }
+
+        public void Delete(Ticket entity)
+        {
+            _ticketDAO.Delete(entity);
         }
     }
 }

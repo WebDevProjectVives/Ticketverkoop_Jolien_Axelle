@@ -1,0 +1,61 @@
+﻿@model Ticketverkoop.ViewModel.HistoriekVM
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Annuleer ticket</h1>
+
+<h3>Bent u zeker dat u dit ticket wilt annuleren?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TicketId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TicketId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Thuisploeg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Thuisploeg)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Uitploeg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Uitploeg)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ZitplaatsNr)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ZitplaatsNr)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ring)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ring)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Vak)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Vak)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Annulatie">Terug naar lijst</a>
+    </form>
+</div>
