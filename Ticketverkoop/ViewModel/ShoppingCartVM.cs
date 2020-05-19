@@ -14,7 +14,6 @@ namespace Ticketverkoop.ViewModel
 
     public class CartVM
     {
-        //public int Orderlijn_ID { get; set; }
         public int Wedstrijd_ID { get; set; }
         public int Stadion_ID { get; set; }
         public DateTime Datum { get; set; }

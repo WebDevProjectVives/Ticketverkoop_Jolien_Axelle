@@ -7,11 +7,11 @@ namespace Ticketverkoop.Domain.Entities
     {
         public AspNetUsers()
         {
+            Abonnement = new HashSet<Abonnement>();
             AspNetUserClaims = new HashSet<AspNetUserClaims>();
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
-            Order = new HashSet<Order>();
             Ticket = new HashSet<Ticket>();
         }
 
@@ -33,11 +33,11 @@ namespace Ticketverkoop.Domain.Entities
         public DateTime Dob { get; set; }
         public string Name { get; set; }
 
+        public virtual ICollection<Abonnement> Abonnement { get; set; }
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual ICollection<Order> Order { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

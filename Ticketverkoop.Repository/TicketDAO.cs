@@ -45,6 +45,17 @@ namespace Ticketverkoop.Repository
                .ToList();
         }
 
+        public IEnumerable<Ticket> TicketsPerUserPerDatum(string userId, DateTime datum, int wedstrijdId)
+        {
+            return _dbContext.Ticket
+               .Where(t => t.UserId == userId && t.Wedstrijd.Datum == datum && t.WedstrijdId != wedstrijdId)
+               .Include(t => t.Wedstrijd.Thuisploeg)
+               .Include(t => t.Wedstrijd.Uitploeg)
+               .Include(t => t.Ring)
+               .Include(t => t.Vak)
+               .ToList();
+        }
+
         public IEnumerable<Ticket> TicketsPerUserAnnuleren(string userId)
         {
             return _dbContext.Ticket

@@ -24,8 +24,6 @@ namespace Ticketverkoop.Domain.Entities
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Club> Club { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<Orderlijn> Orderlijn { get; set; }
         public virtual DbSet<Ring> Ring { get; set; }
         public virtual DbSet<Seizoen> Seizoen { get; set; }
         public virtual DbSet<Stadion> Stadion { get; set; }
@@ -57,6 +55,11 @@ namespace Ticketverkoop.Domain.Entities
 
                 entity.Property(e => e.StadionRingVakId).HasColumnName("Stadion_Ring_Vak_ID");
 
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnName("User_ID")
+                    .HasMaxLength(450);
+
                 entity.Property(e => e.ZitplaatsNr).HasColumnName("Zitplaats_Nr");
 
                 entity.HasOne(d => d.Club)
@@ -76,6 +79,12 @@ namespace Ticketverkoop.Domain.Entities
                     .HasForeignKey(d => d.StadionRingVakId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Abonnement_Stadion_Ring_Vak");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Abonnement)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Abonnement_User");
             });
 
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
@@ -205,53 +214,6 @@ namespace Ticketverkoop.Domain.Entities
                     .HasForeignKey(d => d.StadionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Club_Stadion");
-            });
-
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
-
-                entity.Property(e => e.DateCreated)
-                    .HasColumnName("Date_Created")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.UserId)
-                    .IsRequired()
-                    .HasColumnName("User_ID")
-                    .HasMaxLength(450);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Order)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_User");
-            });
-
-            modelBuilder.Entity<Orderlijn>(entity =>
-            {
-                entity.Property(e => e.OrderlijnId).HasColumnName("Orderlijn_ID");
-
-                entity.Property(e => e.AbonnementId).HasColumnName("Abonnement_ID");
-
-                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
-
-                entity.Property(e => e.TicketId).HasColumnName("Ticket_ID");
-
-                entity.HasOne(d => d.Abonnement)
-                    .WithMany(p => p.Orderlijn)
-                    .HasForeignKey(d => d.AbonnementId)
-                    .HasConstraintName("FK_Orderlijn_Abonnement");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Orderlijn)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Orderlijn_Order");
-
-                entity.HasOne(d => d.Ticket)
-                    .WithMany(p => p.Orderlijn)
-                    .HasForeignKey(d => d.TicketId)
-                    .HasConstraintName("FK_Orderlijn_Ticket");
             });
 
             modelBuilder.Entity<Ring>(entity =>

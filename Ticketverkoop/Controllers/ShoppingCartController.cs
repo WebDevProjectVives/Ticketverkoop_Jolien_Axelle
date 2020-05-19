@@ -27,8 +27,6 @@ namespace Ticketverkoop.Controllers
         private RingService ringService;
         private VakService vakService;
         private WedstrijdService _wedstrijdService;
-        private OrderService orderService;
-        private OrderlijnService orderlijnService;
         private TicketService ticketService;
         private StadionRingVakService stadionRingVakService;
         private readonly IMapper _mapper;
@@ -38,8 +36,6 @@ namespace Ticketverkoop.Controllers
         {
             _mapper = mapper;
             _emailSender = emailSender;
-            orderService = new OrderService();
-            orderlijnService = new OrderlijnService();
             ticketService = new TicketService();
             ringService = new RingService();
             vakService = new VakService();
@@ -126,87 +122,73 @@ namespace Ticketverkoop.Controllers
 
             try
             {
-                Order order;
-                Orderlijn orderlijn;
                 Ticket ticket;
 
-                //create order object
-                order = new Order();
-                order.UserId = userID;
-                order.DateCreated = DateTime.UtcNow;
-                orderService = new OrderService();
-                orderService.Insert(order);
 
                 foreach (CartVM cart in carts.Cart)
                 {
-                    ICollection<Ticket> ticketsUser = ticketService.TicketsPerUserPerWedstrijd(userID, cart.Wedstrijd_ID);
-                    if (ticketsUser.Count + cart.Aantal <= 10)
+                    IEnumerable<Ticket> ticketsUser = ticketService.TicketsPerUserPerDatum(userID, cart.Datum, cart.Wedstrijd_ID);
+                    ICollection<Ticket> ticketsUserWedstrijd = ticketService.TicketsPerUserPerWedstrijd(userID, cart.Wedstrijd_ID);
+
+                    if (ticketsUser.Count() == 0)
                     {
 
-                        for (var i = 0; i < cart.Aantal; i++)
+
+                        if (ticketsUserWedstrijd.Count + cart.Aantal <= 10)
                         {
-                            ticket = new Ticket();
-                            ticket.WedstrijdId = cart.Wedstrijd_ID;
-                            ticket.VakId = Convert.ToInt32(cart.VakFactor.Substring(0, 1));
-                            ticket.RingId = Convert.ToInt32(cart.RingFactor.Substring(0, 1));
 
-                            stadionRingVakService = new StadionRingVakService();
-                            _wedstrijdService = new WedstrijdService();
-                            Wedstrijd wedstrijd = _wedstrijdService.GetWedstrijd(ticket.WedstrijdId);
-                            var aantalZitplaatsen = stadionRingVakService.AantalZitplaatsenPerVak(wedstrijd.StadionId, ticket.RingId, ticket.VakId);
-                            IEnumerable<Ticket> tickets = ticketService.TicketsPerWedstrijd(ticket.WedstrijdId, ticket.RingId, ticket.VakId);
-
-                            if (tickets.Count() + cart.Aantal <= aantalZitplaatsen.AantalZitplaatsen)
+                            for (var i = 0; i < cart.Aantal; i++)
                             {
-                                int zitplaatsVrij = 1;
-                                int j = 1;
-                                foreach (Ticket ticket1 in tickets)
+                                ticket = new Ticket();
+                                ticket.WedstrijdId = cart.Wedstrijd_ID;
+                                ticket.VakId = Convert.ToInt32(cart.VakFactor.Substring(0, 1));
+                                ticket.RingId = Convert.ToInt32(cart.RingFactor.Substring(0, 1));
+
+                                stadionRingVakService = new StadionRingVakService();
+                                _wedstrijdService = new WedstrijdService();
+                                Wedstrijd wedstrijd = _wedstrijdService.GetWedstrijd(ticket.WedstrijdId);
+                                var aantalZitplaatsen = stadionRingVakService.AantalZitplaatsenPerVak(wedstrijd.StadionId, ticket.RingId, ticket.VakId);
+                                IEnumerable<Ticket> tickets = ticketService.TicketsPerWedstrijd(ticket.WedstrijdId, ticket.RingId, ticket.VakId);
+
+                                if (tickets.Count() + cart.Aantal <= aantalZitplaatsen.AantalZitplaatsen)
                                 {
-                                    if (ticket1.ZitplaatsNr != j)
+                                    int zitplaatsVrij = 1;
+                                    int j = 1;
+                                    foreach (Ticket ticket1 in tickets)
                                     {
-                                        break;
+                                        if (ticket1.ZitplaatsNr != j)
+                                        {
+                                            break;
+                                        }
+                                        j++;
                                     }
-                                    j++;
+                                    zitplaatsVrij = j;
+                                    ticket.ZitplaatsNr = zitplaatsVrij;
+                                    ticket.UserId = userID;
+                                    ticketService = new TicketService();
+                                    ticketService.Insert(ticket);
+
+                                    Ticket ticket2 = ticketService.Get(ticket.TicketId);
+                                    _emailSender.SendEmailAsync(User.Identity.Name, "bevestiging van betaling", "Ticket id: " + ticket2.TicketId + Environment.NewLine + " Datum: " + ticket2.Wedstrijd.Datum + Environment.NewLine + " Thuisploeg: " + ticket2.Wedstrijd.Thuisploeg.Naam + Environment.NewLine + " Uitploeg: " + ticket2.Wedstrijd.Uitploeg.Naam + Environment.NewLine + "\r\n Ring: " + ticket2.Ring.Naam + Environment.NewLine + "\n Vak: " + ticket2.Vak.Naam + Environment.NewLine + " Zitplaats: " + ticket2.ZitplaatsNr);;
+
                                 }
-                                zitplaatsVrij = j;
-                                ticket.ZitplaatsNr = zitplaatsVrij;
-                                ticket.UserId = userID;
-                                ticketService = new TicketService();
-                                ticketService.Insert(ticket);
-                                //create orderlijn object
-                                orderlijn = new Orderlijn();
-                                orderlijn.OrderId = order.OrderId;
-                                orderlijn.TicketId = ticket.TicketId;
-
-                                orderlijnService = new OrderlijnService();
-                                orderlijnService.Insert(orderlijn);
-
-                                Ticket ticket2 = ticketService.Get(ticket.TicketId);
-                                _emailSender.SendEmailAsync(User.Identity.Name, "bevestiging van betaling", "Ticket id: " + ticket2.TicketId + "\r Datum: " + ticket2.Wedstrijd.Datum + "\r\n Ring: " + ticket2.Ring.Naam + "\n Vak: " + ticket2.Vak.Naam + "\n\r Zitplaats: " + ticket2.ZitplaatsNr);
-
+                                else
+                                {
+                                    ViewBag.Message = "Er zijn onvoldoende zitplaatsen beschikbaar in het geselecteerde vak. Uw betaling is dus niet gelukt.";
+                                }
                             }
-                            else
-                            {
-                                ViewBag.Message = "Er zijn onvoldoende zitplaatsen beschikbaar in het geselecteerde vak. Uw betaling is dus niet gelukt.";
-                            }
+
                         }
-
+                        else
+                        {
+                            ViewBag.Message = "U kan maximum 10 tickets kopen per match. U heeft het maximum bereikt. Uw betaling is niet gelukt.";
+                        }
                     }
                     else
                     {
-                        ViewBag.Message = "U kan maximum 10 tickets kopen per match. U heeft het maximum bereikt. Uw betaling is niet gelukt.";
+                        ViewBag.Message = "U kan op eenzelfde dag geen twee verschillende wedstrijden gaan bekijken! Enkel de tickets voor de eerst geselecteerde wedstrijd werden aangekocht.";
                     }
                 }
-                /*foreach(AbonnementCartVM abonnementCart in carts.AbonnementCart)
-                {
-                    abonnement = new Abonnement();
-                    abonnement.ClubId = abonnementCart.Order_ID;
-
-                    orderlijn = new Orderlijn();
-                    orderlijn.OrderId = order.OrderId;
-                    orderlijn.AbonnementId = abonnement.AbonnementId;
-
-                }*/
 
             }
             catch (DataException ex)
@@ -218,8 +200,7 @@ namespace Ticketverkoop.Controllers
                 ModelState.AddModelError("", "Bel systeem administrator");
             }
 
-
-
+            HttpContext.Session.Clear();
             return View();
         }
 
@@ -273,16 +254,10 @@ namespace Ticketverkoop.Controllers
             try
             {
                 Ticket ticket = ticketService.Get(Convert.ToInt32(id));
-                Orderlijn orderlijn = orderlijnService.GetOrderlijnVanTicket(ticket.TicketId);
                 if (ticket == null)
                 {
                     return NotFound();
                 }
-                if (orderlijn == null)
-                {
-                    return NotFound();
-                }
-                orderlijnService.Delete(orderlijn);
                 ticketService.Delete(ticket);
                 return RedirectToAction("Index");
             }

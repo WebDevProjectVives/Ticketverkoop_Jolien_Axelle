@@ -28,6 +28,11 @@ namespace Ticketverkoop.Service
             return _ticketDAO.TicketsPerUser(userId);
         }
 
+        public IEnumerable<Ticket> TicketsPerUserPerDatum(string userId, DateTime datum, int wedstrijdId)
+        {
+            return _ticketDAO.TicketsPerUserPerDatum(userId, datum, wedstrijdId);
+        }
+
         public IEnumerable<Ticket> TicketsPerUserAnnuleren(string userId)
         {
             return _ticketDAO.TicketsPerUserAnnuleren(userId);
