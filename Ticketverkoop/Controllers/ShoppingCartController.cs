@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-//using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,7 +17,6 @@ using Ticketverkoop.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Ticketverkoop.Areas.Identity.Data;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Ticketverkoop.Controllers
 {
@@ -51,10 +49,21 @@ namespace Ticketverkoop.Controllers
 
             if (cartList != null)
             {
+                if(cartList.Cart != null)
+                { 
                 foreach (CartVM cart in cartList.Cart)
                 {
                     cart.Ringen = new SelectList(ringService.GetAll(), "RingFactor", "Naam");
                     cart.Vakken = new SelectList(vakService.GetAll(), "VakFactor", "Naam");
+                }
+                }
+                if(cartList.AbonnementCart != null)
+                { 
+                foreach (AbonnementCartVM abonnementCart in cartList.AbonnementCart)
+                {
+                    abonnementCart.Ringen = new SelectList(ringService.GetAll(), "RingFactor", "Naam");
+                    abonnementCart.Vakken = new SelectList(vakService.GetAll(), "VakFactor", "Naam");
+                }
                 }
             }
 

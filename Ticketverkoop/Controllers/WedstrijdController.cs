@@ -10,7 +10,6 @@ using Ticketverkoop.Extensions;
 using Ticketverkoop.Service;
 using Ticketverkoop.ViewModel;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Ticketverkoop.Controllers
 {

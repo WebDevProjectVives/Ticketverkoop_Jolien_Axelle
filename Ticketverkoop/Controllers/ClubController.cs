@@ -10,7 +10,6 @@ using Ticketverkoop.Extensions;
 using Ticketverkoop.Service;
 using Ticketverkoop.ViewModel;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Ticketverkoop.Controllers
 {
@@ -18,7 +17,6 @@ namespace Ticketverkoop.Controllers
     {
         private ClubService _clubService;
         private WedstrijdService _wedstrijdService;
-        //private StadionService _stadionService;
         private readonly IMapper _mapper;
 
         public ClubController(IMapper mapper)
@@ -104,7 +102,7 @@ namespace Ticketverkoop.Controllers
                 Club_ID = club.ClubId,
                 Naam = club.Naam,
                 Aantal = 1,
-                Prijs = club.Stadion.Basisprijs * 8,// moet prijs zijn uit de database : RingVakSTadion
+                Prijs = club.Stadion.Basisprijs * 8,
                 DateCreated = DateTime.Now
             };
 

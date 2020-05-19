@@ -162,53 +162,53 @@
                 @for (var i = 0; i < Model.AbonnementCart.Count; i++)
                 {
 
-                    <tr>
-                        @Html.HiddenFor(m => Model.AbonnementCart[i].Club_ID)
-                        <td>
-                            <input asp-for="@Model.AbonnementCart[i].Club_ID" readonly="readonly"
-                                   class="form-control" />
+            <tr>
+                @Html.HiddenFor(m => Model.AbonnementCart[i].Club_ID)
+                <td>
+                    <input asp-for="@Model.AbonnementCart[i].Club_ID" readonly="readonly"
+                           class="form-control" />
 
-                        </td>
-                        <td>
-                            <input asp-for="@Model.AbonnementCart[i].Naam" readonly="readonly"
-                                   class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.AbonnementCart[i].Naam" readonly="readonly"
+                           class="form-control" />
 
-                        </td>
-                        <td>
-                            <select asp-for="@Model.AbonnementCart[i].Ring" asp-items="@ViewBag.lstRingen" data-aantal="@i">
-                                <option>Selecteer ring</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select asp-for="@Model.AbonnementCart[i].Vak" asp-items="@ViewBag.lstVakken" data-aantal="@i">
-                                <option>Selecteer vak</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input asp-for="@Model.AbonnementCart[i].Aantal" type="number"
-                                   min="1" max="10" data-aantal=@i />
+                </td>
+                <td>
+                    <select asp-for="@Model.AbonnementCart[i].RingFactor" asp-items="@Model.AbonnementCart[i].Ringen" data-aantal="@i">
+                        <option>Selecteer ring</option>
+                    </select>
+                </td>
+                <td>
+                    <select asp-for="@Model.AbonnementCart[i].VakFactor" asp-items="@Model.AbonnementCart[i].Vakken" data-aantal="@i">
+                        <option>Selecteer vak</option>
+                    </select>
+                </td>
+                <td>
+                    <input asp-for="@Model.AbonnementCart[i].Aantal" type="number"
+                           min="1" max="10" data-aantal=@i />
 
-                        </td>
-                        <td>
-                            <input asp-for="@Model.AbonnementCart[i].Prijs"
-                                   readonly="readonly" data-basisprijs="@Model.AbonnementCart[i].Prijs" />
+                </td>
+                <td>
+                    <input asp-for="@Model.AbonnementCart[i].Prijs"
+                           readonly="readonly" data-basisprijs="@Model.AbonnementCart[i].Prijs" />
 
-                        </td>
-                        <td>
-                            <input id="@("txtSubTotal" + @i)"
-                                   value="0"
-                                   type="number" readonly="readonly" />
-                        </td>
+                </td>
+                <td>
+                    <input id="@("txtSubTotal" + @i)"
+                           value="0"
+                           type="number" readonly="readonly" />
+                </td>
 
-                        <td>
+                <td>
 
-                            <a asp-controller="ShoppingCart"
-                               asp-action="DeleteAbonnement"
-                               asp-route-club_ID="@Model.AbonnementCart[i].Club_ID">
-                                <img src="~/Images/Delete_Icon.png" />
-                            </a>
-                        </td>
-                    </tr>
+                    <a asp-controller="ShoppingCart"
+                       asp-action="DeleteAbonnement"
+                       asp-route-club_ID="@Model.AbonnementCart[i].Club_ID">
+                        <img src="~/Images/Delete_Icon.png" />
+                    </a>
+                </td>
+            </tr>
                 }
 
                 <tr>

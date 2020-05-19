@@ -16,7 +16,8 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
-    @RenderSection("Styles", required: false);
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <header>
@@ -45,7 +46,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Wedstrijd" asp-action="Index">Wedstrijden</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Weer" asp-action="Index">
+                                <img src="~/Images/Weather_Icon.png" />
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a asp-area="" asp-controller="ShoppingCart" asp-action="Index">
                                 <img src="~/Images/shoppingcart.png" />
                             </a>
@@ -64,7 +70,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Ticketverkoop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Ticketverkoop - Jolien Staelens en Axelle Van Tieghem 
         </div>
     </footer>
 

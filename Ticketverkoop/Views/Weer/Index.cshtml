@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Het weer in <span class="font-weight-bold" id="name"></span></h3>
+<p>Temperatuur: <span id="temp"></span>&deg;C</p>
+<p>Luchtvochtigheid: <span id="humidity"></span>%</p>
+<p>Windsnelheid: <span id="speed"></span> km per uur</p>
+
+<button type="button" class="btn btn-primary">Toon het weer op dit moment</button>
+
+<script>
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.get("https://api.openweathermap.org/data/2.5/weather?q=Brussel&appid=c4e3c5a811ba08600f625f0f9fd03027&units=metric", function (response) {
+                $("#name").text(response.name);
+                $("#temp").text(response.main.temp);
+                $("#humidity").text(response.main.humidity);
+                 $("#speed").text(response.wind.speed);
+            });
+
+        });
+    });
+</script>

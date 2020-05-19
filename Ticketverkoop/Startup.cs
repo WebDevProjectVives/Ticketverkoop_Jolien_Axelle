@@ -39,10 +39,6 @@ namespace Ticketverkoop
             });
 
             // send mail
-            /*services.AddTransient<IEmailSender, ForgotPasswordEmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("AuthMessageSenderOptions"));*/
-
-            //services.AddTransient<IEmailSender, EmailSender>();
             
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));  // Configuration.GetSection("EmailSettings")) zal de
             // instellingen opvragen uit de AppSettings.json file en vervolgens wordt er een emailsettings‐object aangemaakt en de waarden worden
@@ -80,13 +76,13 @@ namespace Ticketverkoop
         {
             if (env.IsDevelopment())
             {
-                //app.UseStatusCodePagesWithReExecute("/CustomErrorPages/{0}");
+                app.UseStatusCodePagesWithReExecute("/CustomErrorPages/{0}");
                 //app.UseExceptionHandler("/Home/Error");
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                //app.UseStatusCodePagesWithReExecute("/CustomErrorPages/{0}");
+                app.UseStatusCodePagesWithReExecute("/CustomErrorPages/{0}");
                 //app.UseDeveloperExceptionPage();
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

@@ -5,7 +5,6 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -76,7 +75,6 @@ namespace Ticketverkoop.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                //var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var user = new ApplicationUser
                 {
                     Name = Input.Name,
