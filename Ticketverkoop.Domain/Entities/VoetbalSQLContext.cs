@@ -51,14 +51,16 @@ namespace Ticketverkoop.Domain.Entities
 
                 entity.Property(e => e.ClubId).HasColumnName("Club_ID");
 
-                entity.Property(e => e.SeizoenId).HasColumnName("Seizoen_ID");
+                entity.Property(e => e.RingId).HasColumnName("Ring_ID");
 
-                entity.Property(e => e.StadionRingVakId).HasColumnName("Stadion_Ring_Vak_ID");
+                entity.Property(e => e.SeizoenId).HasColumnName("Seizoen_ID");
 
                 entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasColumnName("User_ID")
                     .HasMaxLength(450);
+
+                entity.Property(e => e.VakId).HasColumnName("Vak_ID");
 
                 entity.Property(e => e.ZitplaatsNr).HasColumnName("Zitplaats_Nr");
 
@@ -68,23 +70,29 @@ namespace Ticketverkoop.Domain.Entities
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Abonnement_Club");
 
+                entity.HasOne(d => d.Ring)
+                    .WithMany(p => p.Abonnement)
+                    .HasForeignKey(d => d.RingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Abonnement_Ring");
+
                 entity.HasOne(d => d.Seizoen)
                     .WithMany(p => p.Abonnement)
                     .HasForeignKey(d => d.SeizoenId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Abonnement_Seizoen");
 
-                entity.HasOne(d => d.StadionRingVak)
-                    .WithMany(p => p.Abonnement)
-                    .HasForeignKey(d => d.StadionRingVakId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Abonnement_Stadion_Ring_Vak");
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Abonnement)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Abonnement_User");
+
+                entity.HasOne(d => d.Vak)
+                    .WithMany(p => p.Abonnement)
+                    .HasForeignKey(d => d.VakId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Abonnement_Vak");
             });
 
             modelBuilder.Entity<AspNetRoleClaims>(entity =>

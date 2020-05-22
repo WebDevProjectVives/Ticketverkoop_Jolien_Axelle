@@ -7,6 +7,7 @@ namespace Ticketverkoop.Domain.Entities
     {
         public Vak()
         {
+            Abonnement = new HashSet<Abonnement>();
             StadionRingVak = new HashSet<StadionRingVak>();
             Ticket = new HashSet<Ticket>();
         }
@@ -15,6 +16,7 @@ namespace Ticketverkoop.Domain.Entities
         public string Naam { get; set; }
         public string VakFactor { get; set; }
 
+        public virtual ICollection<Abonnement> Abonnement { get; set; }
         public virtual ICollection<StadionRingVak> StadionRingVak { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
     }

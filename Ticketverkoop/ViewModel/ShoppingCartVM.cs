@@ -35,13 +35,14 @@ namespace Ticketverkoop.ViewModel
     {
         public int Club_ID { get; set; }
         public string Naam { get; set; }
+        public DateTime Startdatum { get; set; }
+        public DateTime Einddatum { get; set; }
         public string Ring { get; set; }
         public SelectList Ringen { get; set; }
         public string RingFactor { get; set; }
         public string Vak { get; set; }
         public SelectList Vakken { get; set; }
         public string VakFactor { get; set; }
-        public int Aantal { get; set; }
         public decimal Prijs { get; set; }
         public System.DateTime DateCreated { get; set; }
 

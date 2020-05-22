@@ -15,6 +15,11 @@ namespace Ticketverkoop.Service
             _ringDAO = new RingDAO();
         }
 
+        public Ring Get(int? id)
+        {
+            return _ringDAO.Get(id);
+        }
+
         public IEnumerable<Ring> GetAll()
         {
             return _ringDAO.GetAll();

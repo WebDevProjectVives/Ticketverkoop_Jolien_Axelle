@@ -53,7 +53,6 @@ namespace Ticketverkoop.Domain.Entities
 
                 entity.Property(e => e.SeizoenId).HasColumnName("Seizoen_ID");
 
-                entity.Property(e => e.StadionRingVakId).HasColumnName("Stadion_Ring_Vak_ID");
 
                 entity.Property(e => e.ZitplaatsNr).HasColumnName("Zitplaats_Nr");
 
@@ -69,11 +68,6 @@ namespace Ticketverkoop.Domain.Entities
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Abonnement_Seizoen");
 
-                entity.HasOne(d => d.StadionRingVak)
-                    .WithMany(p => p.Abonnement)
-                    .HasForeignKey(d => d.StadionRingVakId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Abonnement_Stadion_Ring_Vak");
             });
 
             modelBuilder.Entity<AspNetRoleClaims>(entity =>

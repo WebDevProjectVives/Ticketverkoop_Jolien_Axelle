@@ -61,5 +61,6 @@ namespace Ticketverkoop.Repository
                 .Include(w => w.Uitploeg)
                 .Include(w => w.Stadion).ToList();
         }
+
     }
 }

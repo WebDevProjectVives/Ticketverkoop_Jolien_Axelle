@@ -6,25 +6,20 @@ using Ticketverkoop.Domain.Entities;
 
 namespace Ticketverkoop.Repository
 {
-    public class RingDAO
+    public class SeizoenDAO
     {
         private readonly VoetbalSQLContext _dbContext;
 
-        public RingDAO()
+        public SeizoenDAO()
         {
             _dbContext = new VoetbalSQLContext();
         }
 
-        public Ring Get(int? id)
+        public Seizoen GetByDatum(DateTime datum)
         {
-            return _dbContext.Ring
-                .Where(r => r.RingId == id)
+            return _dbContext.Seizoen
+                .Where(s => s.Startdatum > datum)
                 .FirstOrDefault(); // -> null, zonder dit wordt er geen execute uitgevoerd!
-        }
-
-        public IEnumerable<Ring> GetAll()
-        {
-            return _dbContext.Ring.ToList();
         }
     }
 }

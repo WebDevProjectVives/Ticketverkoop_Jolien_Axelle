@@ -17,11 +17,13 @@ namespace Ticketverkoop.Controllers
     {
         private ClubService _clubService;
         private WedstrijdService _wedstrijdService;
+        private SeizoenService _seizoenService; 
         private readonly IMapper _mapper;
 
         public ClubController(IMapper mapper)
         {
             _clubService = new ClubService();
+            _seizoenService = new SeizoenService();
             _mapper = mapper;
         }
 
@@ -95,13 +97,14 @@ namespace Ticketverkoop.Controllers
             }
 
             Club club = await _clubService.Get(Convert.ToInt32(id));
-
+            Seizoen seizoen = _seizoenService.GetByDatum(DateTime.Now);
 
             AbonnementCartVM item = new AbonnementCartVM
             {
                 Club_ID = club.ClubId,
                 Naam = club.Naam,
-                Aantal = 1,
+                Startdatum = seizoen.Startdatum,
+                Einddatum = seizoen.Einddatum,
                 Prijs = club.Stadion.Basisprijs * 8,
                 DateCreated = DateTime.Now
             };
@@ -111,6 +114,10 @@ namespace Ticketverkoop.Controllers
             if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
             {
                 shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+                if (shopping.AbonnementCart == null)
+                {
+                    shopping.AbonnementCart = new List<AbonnementCartVM>();
+                }
             }
             else
             {

@@ -20,10 +20,10 @@
 
             <table>
                 <tr>
-                    <th>
+                    <th style="width:10px">
                         @Html.DisplayNameFor(model => model.Cart[0].Wedstrijd_ID)
                     </th>
-                    <th>
+                    <th style="width:20px">
                         @Html.DisplayNameFor(model => model.Cart[0].Datum)
                     </th>
                     <th>
@@ -56,24 +56,24 @@
 
                     <tr>
                         @Html.HiddenFor(m => Model.Cart[i].Wedstrijd_ID)
-                        <td>
+                        <td style="width: 10px">
                             <input asp-for="@Model.Cart[i].Wedstrijd_ID" readonly="readonly"
                                    class="form-control" />
 
                         </td>
-                        <td>
+                        <td style="width: 20px">
                             <input asp-for="@Model.Cart[i].Datum" readonly="readonly"
                                    class="form-control" />
 
                         </td>
                         <td>
                             <input asp-for="@Model.Cart[i].Thuisploeg" readonly="readonly"
-                                   class="form-control" />
+                                    />
 
                         </td>
                         <td>
                             <input asp-for="@Model.Cart[i].Uitploeg" readonly="readonly"
-                                   class="form-control" />
+                                    />
 
                         </td>
                         <td>
@@ -88,7 +88,7 @@
                         </td>
                         <td>
                             <input asp-for="@Model.Cart[i].Aantal" type="number"
-                                   min="1" max="10" data-aantal=@i />
+                                   min="1" max="10" data-aantal=@i class="form-control" />
 
                         </td>
                         <td>
@@ -104,7 +104,7 @@
                         <td>
                             <input id="@("txtSubTotal" + @i)"
                                    value="0"
-                                   type="number" readonly="readonly" />
+                                   type="number" readonly="readonly" class="form-control" />
                         </td>
 
                         <td>
@@ -118,7 +118,7 @@
                     </tr>
                 }
 
-                <tr>
+                <!--<tr>
                     <td>
                         <input type="submit" value="Betalen"
                                class="btn btn-secondary" />
@@ -127,17 +127,23 @@
                 <tr>
                     <td id="cart-total">
                         Totaal  <input id="txtTotal" value="0"
-                                       type="number" readonly="readonly" />
+                                       type="number" readonly="readonly" class="form-control"/>
                     </td>
-                </tr>
+                </tr>-->
             </table>
         }
         @if (Model.AbonnementCart != null)
         {
             <table>
                 <tr>
-                    <th>
+                    <th style="width:10px">
                         @Html.DisplayNameFor(model => model.AbonnementCart[0].Club_ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Startdatum)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Einddatum)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.AbonnementCart[0].Naam)
@@ -149,14 +155,8 @@
                         @Html.DisplayNameFor(model => model.AbonnementCart[0].Vak)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.AbonnementCart[0].Aantal)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.AbonnementCart[0].Prijs)
 
-                    </th>
-                    <th>
-                        Subtotaal
                     </th>
                 </tr>
                 @for (var i = 0; i < Model.AbonnementCart.Count; i++)
@@ -164,14 +164,23 @@
 
             <tr>
                 @Html.HiddenFor(m => Model.AbonnementCart[i].Club_ID)
-                <td>
+                <td style="width:10px">
                     <input asp-for="@Model.AbonnementCart[i].Club_ID" readonly="readonly"
                            class="form-control" />
 
                 </td>
                 <td>
-                    <input asp-for="@Model.AbonnementCart[i].Naam" readonly="readonly"
+                    <input asp-for="@Model.AbonnementCart[i].Startdatum" readonly="readonly"
                            class="form-control" />
+
+                </td>
+                <td>
+                    <input asp-for="@Model.AbonnementCart[i].Einddatum" readonly="readonly"
+                           class="form-control" />
+
+                </td>
+                <td>
+                    <input asp-for="@Model.AbonnementCart[i].Naam" readonly="readonly" />
 
                 </td>
                 <td>
@@ -185,19 +194,9 @@
                     </select>
                 </td>
                 <td>
-                    <input asp-for="@Model.AbonnementCart[i].Aantal" type="number"
-                           min="1" max="10" data-aantal=@i />
-
-                </td>
-                <td>
                     <input asp-for="@Model.AbonnementCart[i].Prijs"
                            readonly="readonly" data-basisprijs="@Model.AbonnementCart[i].Prijs" />
 
-                </td>
-                <td>
-                    <input id="@("txtSubTotal" + @i)"
-                           value="0"
-                           type="number" readonly="readonly" />
                 </td>
 
                 <td>
@@ -210,21 +209,36 @@
                 </td>
             </tr>
                 }
-
-                <tr>
-                    <td>
-                        <input type="submit" value="Betalen"
-                               class="btn btn-primary" />
-                    </td>
-                </tr>
-                <tr>
-                    <td id="cart-total">
-                        Totaal  <input id="txtTotal" value="0"
-                                       type="number" readonly="readonly" />
-                    </td>
-                </tr>
+                <!--
+                    <tr>
+                        <td>
+                            <input type="submit" value="Betalen"
+                                   class="btn btn-primary" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="cart-total">
+                            Totaal  <input id="txtTotal" value="0"
+                                           type="number" readonly="readonly" />
+                        </td>
+                    </tr>
+                -->
             </table>
         }
+        <table>
+            <tr>
+                <td>
+                    <input type="submit" value="Betalen"
+                           class="btn btn-primary" />
+                </td>
+            </tr>
+            <tr>
+                <td id="cart-total">
+                    Totaal  <input id="txtTotal" value="0"
+                                   type="number" readonly="readonly" class="form-control"/>
+                </td>
+            </tr>
+        </table>
     </form>
 }
 else
@@ -333,6 +347,8 @@ else
 
                 $('#txtTotal').val(sum);
             });
+
+
         });
 
 

@@ -9,12 +9,14 @@ namespace Ticketverkoop.Domain.Entities
         public int ZitplaatsNr { get; set; }
         public int ClubId { get; set; }
         public int SeizoenId { get; set; }
-        public int StadionRingVakId { get; set; }
+        public int RingId { get; set; }
+        public int VakId { get; set; }
         public string UserId { get; set; }
 
         public virtual Club Club { get; set; }
+        public virtual Ring Ring { get; set; }
         public virtual Seizoen Seizoen { get; set; }
-        public virtual StadionRingVak StadionRingVak { get; set; }
         public virtual AspNetUsers User { get; set; }
+        public virtual Vak Vak { get; set; }
     }
 }

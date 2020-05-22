@@ -15,6 +15,11 @@ namespace Ticketverkoop.Service
             _vakDAO = new VakDAO();
         }
 
+        public Vak Get(int? id)
+        {
+            return _vakDAO.Get(id);
+        }
+
         public IEnumerable<Vak> GetAll()
         {
             return _vakDAO.GetAll();

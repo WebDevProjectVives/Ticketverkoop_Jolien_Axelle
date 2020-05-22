@@ -71,6 +71,7 @@ namespace Ticketverkoop.Repository
         {
             return _dbContext.Ticket
                .Where(t => t.WedstrijdId == wedstrijdId && t.RingId == ringId && t.VakId == vakId)
+               .OrderBy(t => t.ZitplaatsNr)
                .ToList();
         }
 
